@@ -11,29 +11,34 @@ export default class ProductManager {
 
     }
 
-    addProduct (title, description, price, thumbnail, stock) {
+    addProduct (title, description, code, price, thumbnail, stock, category) {
         let idMax= 0
         this.Products.forEach((prod) => {
-            if (prod.code >idMax) 
-            idMax = prod.code
+            if (prod.id >idMax) 
+            idMax = prod.id
         })
 
         idMax++
-
+            
         const product = {
 
-            code: idMax,
-            title: title || "none",
-            decription: description || "none",
-            price: price || 0,
-            thumbnail: thumbnail || "none",
-            stock: stock || 0,
+            id: idMax,
+            title: title,
+            decription: description,
+            code: code,
+            price: parseInt(price) || 0,
+            status:true,
+            thumbnail: thumbnail,
+            stock: parseInt(stock) || 0,
+            category: category
 
         }
-
         this.Products.push(product)
         const productString = JSON.stringify(this.Products)
         fs.writeFileSync(this.path, productString)
+        return ("producto agregado exitosamente")
+        
+
     }
 
     getProducts (){
@@ -43,7 +48,7 @@ export default class ProductManager {
     getProductById (id) {
         if( id<=this.Products.length && id>0 ) {
             
-            let serch = this.Products.find((prod)=> prod.code==id)
+            let serch = this.Products.find((prod)=> prod.id==id)
             return serch
 
         }else {
@@ -57,8 +62,7 @@ export default class ProductManager {
 
         if( id<=this.Products.length && id>0 ) {
             
-            let i = this.Products.indexOf((prod)=> prod.code==id)
-            this.Products.splice(i,1)
+            this.Products = this.Products.filter((p) => p.id != id)
             const productString = JSON.stringify(this.Products)
             fs.writeFileSync(this.path, productString)
 
@@ -70,28 +74,21 @@ export default class ProductManager {
 
     }
 
-    updateProduct (id,prop,value) {
+    updateProduct (id,newParams) {
 
         if( id<=this.Products.length && id>0 ) {
             
-            const uProd = this.Products.find((prod)=> prod.code==id)
-            uProd[prop]= value
+            const i = this.Products.findIndex((prod)=> prod.id==id)
+            this.Products[i] = {id: this.Products[i].id,...newParams}
             const productString = JSON.stringify(this.Products)
             fs.writeFileSync(this.path, productString)
+            return this.Products[i]
 
         }else {
-            console.log("Not Found")
+            return("Not Found")
         }
 
     }
 
 }
-
-const test = new ProductManager ("./products.json")
-//test.limitProduct(2)
-//test.addProduct("intel core i5", "procesador gama media", 35900,"","")
-//test.addProduct("intel core i7", "procesador gama alta", 45500,"",10)
-//test.deleteProduct(2)
-//test.updateProduct(1,"title","ryzen 5")
-test.getProducts()
 
