@@ -1,7 +1,7 @@
 import express from "express";
 import ProductManager from "../ProductManager.js";
 export const productsRouter = express.Router();
-let products = new ProductManager ("./src/products.json");
+export let products = new ProductManager ("./src/products.json");
 
 productsRouter.get("/:pid", (req, res) => {
   const id = req.params.pid;

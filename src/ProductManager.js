@@ -24,7 +24,7 @@ export default class ProductManager {
 
             id: idMax,
             title: title,
-            decription: description,
+            description: description,
             code: code,
             price: parseInt(price) || 0,
             status:true,
