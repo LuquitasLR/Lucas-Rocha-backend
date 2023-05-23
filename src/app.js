@@ -6,10 +6,10 @@ import { vistaProducts } from './routes/home.handlebars.router.js';
 import { productsRouter } from './routes/products.router.js';
 import { realTimeProductsRouter } from './routes/real-time-products.handlebars.router.js';
 import __dirname from "./utils.js";
+import { products } from './routes/products.router.js';
 
 const app = express()
 const port = 8080
-
 
 const httpServer = app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
@@ -19,6 +19,27 @@ const httpServer = app.listen(port, () => {
 //INICIAMOS EL SOCKET SERVER
 const socketServer = new Server(httpServer);
 
+
+socketServer.on ("connection", (socket) => {
+  console.log (socket.id, "socket conectado")
+})
+
+
+
+socketServer.on ("newProduct", async (newProduct) => {
+
+  try {
+
+    products.addProduct(newProduct.title, newProduct.description, newProduct.code, newProduct.price, newProduct.thumbnail, newProduct.stock, newProduct.category)
+    const productsList= await products.getProducts()
+    console.log(productsList)
+    socketServer.emit("products",productsList)
+  }
+  
+  catch (error) {
+    console.log(error)
+  }
+})
 
 
 app.use(express.urlencoded({ extended: true }));

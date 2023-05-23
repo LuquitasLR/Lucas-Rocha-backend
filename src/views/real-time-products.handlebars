@@ -1,5 +1,57 @@
-<div><h2>Productos en tiempo real</h2></div>
+<div>
+    <h1>Lista de productos disponibles:</h1>
+    <ol>{{#each getProducts}}
+    <li>
+        <h3> Producto: {{this.title}}</h3>
+        <p>
+        ID: {{this.id}}.
+        Descripción: {{this.description}}.
+        Código: {{this.code}}
+        Stock: {{this.stock}}
+        Categoría: {{this.category}}
+        </p>
+        <h4> Precio: ${{this.price}}</h4>
+        <input type="submit" id="delete" value="Eliminar">
+    </li>
+    <hr/>
+    {{/each}}
+ </ol>
+</div>
+<div>
+    <h3>Agregar producto:</h3>
+    <form id="form-product">
+        <div>
+            <div>
+                <label for="title">Titulo:</label>
+                <input type="text" name="title" id="form-title">
+            </div>
+            <div>
+                <label for="description">Descripción:</label>
+                <input type="text" name="description" id="form-description">
+            </div>
+            <div>
+                <label for="code">Codigo:</label>
+                <input type="text" name="code" id="form-code">
+            </div>
+            <div>
+                <label for="price">Precio:</label>
+                <input type="number" name="price" id="form-price">
+            </div>
+            <div>
+                <label for="thumbnail"> URL de la imagen:</label>
+                <input type="text" name="thumbnail" id="form-thumbnail">
+            </div>
+            <div>
+                <label for="stock">Stock:</label>
+                <input type="number" name="stock" id="form-stock">
+            </div>
+            <div>
+                <label for="category">Categoria:</label>
+                <input type="text" name="category" id="form-category">
+            </div>
+            <input id="send" type="submit" value="Crear Producto">
+        </div>
+    </form>
+</div>
 <script src="/socket.io/socket.io.js"></script>
-<script>
-  const socket = io();
-</script>
+<script src="/js/index.js"></script>
