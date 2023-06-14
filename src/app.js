@@ -1,12 +1,13 @@
 import express from 'express';
 import handlebars from "express-handlebars";
-import { __dirname, connectMongo } from './utils/dbconection.js';
 import path from "path";
+import { __dirname } from './config.js';
 import { cartsRouter } from './routes/carts.router.js';
 import { vistaProducts } from './routes/home.handlebars.router.js';
 import { productsRouter } from './routes/products.router.js';
 import { realTimeProductsRouter } from './routes/real-time-products.handlebars.router.js';
 import { testChatRouter } from './routes/test-chat.router.js';
+import { connectMongo } from './utils/dbconection.js';
 import { socketServerConection } from './utils/socketServer.js';
 
 
