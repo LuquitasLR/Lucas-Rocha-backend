@@ -1,6 +1,6 @@
 import express from "express";
 export const cartsRouter = express.Router();
-import cartManager from "../cartManager.js";
+import cartManager from "../services/cartService.js";
 let cart = new cartManager("./src/carts.json")
 
 cartsRouter.get("/:cid", (req, res) => {

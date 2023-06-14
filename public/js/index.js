@@ -21,8 +21,15 @@ formProducts.addEventListener("submit", (e)=> {
         stock: +formStock.value,
         category: formCategory.value
     }
-    
-    socket.emit("newProduct",newProduct)
-})
+    socket.emit("new-product",newProduct)
+    console.log(newProduct+"desde el front") 
+});   
 
-socket.on("products",(productsList) =>{console.log(productsList)})
+socket.on("conectado", (msj) => {
+    console.log(JSON.stringify(msj));
+    })
+
+    socket.emit("test",{msj:"probando la conexion"})
+
+    socket.on("products",(productsList) =>{console.log(productsList)})
+
