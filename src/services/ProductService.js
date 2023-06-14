@@ -29,7 +29,8 @@ export default class ProductManager {
     }
 
     async getProducts (){
-        return  await ProductModel.find({})
+        let products = await ProductModel.find({})
+        return products
     }
 
     async getProductById (id) {
@@ -68,21 +69,24 @@ export default class ProductManager {
     // ESTOY TENIENDO PROBLEMAS QUIZAS CON ESTE METODO, NO PUEDO MODIFICAR EL PRODUCTO CON POSTMAN.
     async updateProduct (_id,body) {
 
-        //if (!body.title || !body.description || !body.category || !body.price  || !body.code || !body.stock || !body.status) {
-          //  return console.log("all fields are required.");
-        //  }
-            
-           const updated= await ProductModel.updateOne({_id: _id},
-             body.title,
-             body.description,
-             body.code,
-             body.status,
-             body.thumbnail,
-             body.stock,
-             body.category)
-             console.log(body)
+        const { title, description, category, status, price, code, stock } = body;
+        if (!title || !description || !category || !price || !status || !code || !stock) {
+          console.log("all fields are required.");
+        }
+        const productUpdate = await ProductModel.updateOne(
+          { _id },
+          {
+            title,
+            description,
+            category,
+            price,
+            status,
+            code,
+            stock,
+          }
+        );
 
-           return updated
+        return productUpdate;
 
     }
 

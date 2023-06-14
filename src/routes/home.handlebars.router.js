@@ -6,7 +6,7 @@ const getProducts = products.getProducts()
 
 vistaProducts.get("/", (req,res) => {
     const title = "Lista de productos disponibles:"
-    return res.status(200).render("home",{title,getProducts})
+    return res.status(200).render("home",{title, getProducts})
 
 
 

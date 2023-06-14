@@ -22,29 +22,31 @@ export const httpServer = app.listen(port, () => {
 socketServerConection(httpServer)
 connectMongo()
 
+
 app.use(express.urlencoded({ extended: true }));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static('public'));
+
 
 //CONFIG DEL MOTOR DE PLANTILLAS
 app.engine("handlebars", handlebars.engine());
 app.set("views", __dirname + "/views");
 app.set("view engine", "handlebars");
 
+
 // app.use(express.static("public"));
 app.use(express.static(path.join(__dirname, "/public")));
+
 
 //ENDPOINTS TIPO API REST/JSON
 app.use("/api/products" ,productsRouter)
 app.use("/api/carts" ,cartsRouter)
 
+
 //ENDPOINTS CON VISTAS DE HANDLEBARS
 app.use("/home", vistaProducts)
 app.use("/realtimeproducts", realTimeProductsRouter)
 app.use("/test-chat", testChatRouter)
-
-
-
 
 
 //OTROS ENDPOINTS

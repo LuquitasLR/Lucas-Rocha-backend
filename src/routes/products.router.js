@@ -51,10 +51,11 @@ productsRouter.post("/", (req, res) => {
     .json({status: "success", msg: added });
 });
 
-productsRouter.put("/:pid", (req, res) => {
+productsRouter.put("/:pid", async(req, res) => {
   const _id = req.params.pid;
   const body = req.body;
-  const mProduct = products.updateProduct(_id, body)
+  const toUpdate = products.updateProduct(_id, body)
+  const mProduct = await products.getProductById(_id);
   return res.status(200)
   .json({status: "success", msg: "producto modificado", data: mProduct });
 
