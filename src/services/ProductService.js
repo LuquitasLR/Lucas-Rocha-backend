@@ -89,6 +89,10 @@ export default class ProductManager {
         return productUpdate;
 
     }
-
+    async paginatedProducts (lim, pag){
+        const res = await ProductModel.paginate({},{limit: Number(lim), page:Number(pag)})
+        return res
+    }
 }
 
+export const products = new ProductManager()

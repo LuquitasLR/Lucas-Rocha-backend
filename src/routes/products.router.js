@@ -1,7 +1,6 @@
 import express from "express";
-import ProductManager from "../services/ProductService.js";
 export const productsRouter = express.Router();
-export let products = new ProductManager ();
+import { products } from "../services/ProductService.js";
 
 productsRouter.get("/:pid", async (req, res) => {
   const id = req.params.pid;
@@ -14,7 +13,7 @@ productsRouter.get("/:pid", async (req, res) => {
 
 productsRouter.get("/", async (req, res) => {
 
-  const limit = req.query.limit;
+  let limit = req.query.limit;
   const getProducts = await products.getProducts()
   if (limit) {
     const limitProducts = getProducts.slice(0, limit);
@@ -22,10 +21,11 @@ productsRouter.get("/", async (req, res) => {
     .status(200)
     .json({ status: "success", msg: "cantidad seleccionada de productos", data: limitProducts }); 
   }else{
-
+    limit=10
+    const limitProducts = getProducts.slice(0, limit);
     return res
     .status(200)
-    .json({ status: "success", msg: "todos los productos", data: getProducts });
+    .json({ status: "success", msg: "todos los productos(limite=10)", data: limitProducts });
 
   }
 

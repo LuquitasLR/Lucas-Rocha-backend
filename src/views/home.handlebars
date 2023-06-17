@@ -1,13 +1,31 @@
 <div>
- <h1>{{title}}</h1>   
- <ol>{{#each getProducts}}
+ <h1>Lista de productos disponibles:</h1>   
+ <ol>{{#each paginatedProducts}}
     <li>
         <h3>Producto: {{this.title}}</h3>
-        <h4>ID: {{this.id}}</h4>
+        <h4>ID:</h4> <p>{{this._id}}</p>
         <h4>Descripción:</h4><p>{{this.description}}</p>
         <h3>Precio: ${{this.price}}</h3>
+        <button>Agregar al carrito</button>
     </li>
     <hr/>
     {{/each}}
  </ol>
+ <h3>paginacion</h3>
+<p>
+  {{!-- totalDocs:
+  {{totalDocs}}
+  limit:
+  {{limit}} --}}
+  {{#if hasPrevPage}}
+    <a style='text-decoration: none;' href='/home?querypage={{prevPage}}'>⬅️{{prevPage}}  - - - -  </a>
+  {{/if}}
+  pagina
+  {{page}}
+  de
+  {{totalPages}}
+  {{#if hasNextPage}}
+    <a style='text-decoration: none;' href='/home?querypage={{nextPage}}'>  - - - -  {{nextPage}}➡️</a>
+  {{/if}}
+</p>
 </div>

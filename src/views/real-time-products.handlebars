@@ -1,20 +1,6 @@
 <div>
     <h1>Lista de productos disponibles:</h1>
-    <ol>{{#each getProducts}}
-    <li>
-        <h3> Producto: {{this.title}}</h3>
-        <p>
-        ID: {{this.id}}.
-        Descripción: {{this.description}}.
-        Código: {{this.code}}
-        Stock: {{this.stock}}
-        Categoría: {{this.category}}
-        </p>
-        <h4> Precio: ${{this.price}}</h4>
-        <input type="submit" id="delete" value="Eliminar">
-    </li>
-    <hr/>
-    {{/each}}
+    <ol id="product-list">
  </ol>
 </div>
 <div>
