@@ -1,7 +1,6 @@
-//import fs from 'fs'
 import { ProductModel } from '../DAO/models/products.model.js'
 
-export default class ProductManager {
+export default class productService {
 
     constructor () {
         
@@ -50,23 +49,12 @@ export default class ProductManager {
     }
 
         async deleteProduct (_id) {
-
-        // const toDelete = ProductModel.findOne({_id: id})
         
         await ProductModel.findByIdAndDelete(_id)
-        // if( toDelete ) {
-            
-        //     ProductModel.deleteOne({_id: id})
-
-        // }else {
-        //     console.log("Not Found")
-        // }
-
 
 
     }
 
-    // ESTOY TENIENDO PROBLEMAS QUIZAS CON ESTE METODO, NO PUEDO MODIFICAR EL PRODUCTO CON POSTMAN.
     async updateProduct (_id,body) {
 
         const { title, description, category, status, price, code, stock } = body;
@@ -89,10 +77,10 @@ export default class ProductManager {
         return productUpdate;
 
     }
-    async paginatedProducts (lim, pag){
-        const res = await ProductModel.paginate({},{limit: Number(lim), page:Number(pag)})
+    async paginatedProducts (query,options){
+        const res = await ProductModel.paginate(query,options)
         return res
     }
 }
 
-export const products = new ProductManager()
+export const products = new productService()

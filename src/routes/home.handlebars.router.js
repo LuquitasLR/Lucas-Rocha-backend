@@ -1,13 +1,12 @@
 import express from "express";
 export const vistaProducts = express.Router();
-//import {products} from "../services/ProductService.js"
-import { ProductModel } from "../DAO/models/products.model.js";
+import { products } from "../services/productService.js";
 
 
 vistaProducts.get("/", async (req,res) => {
     try{
-    const {querypage}= req.query
-        const queryResult = await ProductModel.paginate({category:"procesadores"},{ sort:{price:1},limit:5,page:querypage||1})
+    let querypage= parseInt(req.query.querypage) || 1
+        const queryResult = await products.paginatedProducts({},{ sort:{},limit:5,page:querypage})
         let paginatedProducts= queryResult.docs
         const { totalDocs, limit, totalPages, page, pagingCounter, hasPrevPage, hasNextPage, prevPage, nextPage } = queryResult;
         paginatedProducts= paginatedProducts.map((product)=>{
@@ -19,7 +18,7 @@ vistaProducts.get("/", async (req,res) => {
             }
         }
         )
-        return res.status(200).render("home",{paginatedProducts,totalDocs, limit, totalPages, page, pagingCounter, hasPrevPage, hasNextPage, prevPage, nextPage})
+        return res.status(200).render("products",{paginatedProducts,totalDocs, limit, totalPages, page, pagingCounter, hasPrevPage, hasNextPage, prevPage, nextPage})
 
     }
     catch{

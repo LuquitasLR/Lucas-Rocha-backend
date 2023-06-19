@@ -6,7 +6,7 @@
         <h4>ID:</h4> <p>{{this._id}}</p>
         <h4>Descripción:</h4><p>{{this.description}}</p>
         <h3>Precio: ${{this.price}}</h3>
-        <button>Agregar al carrito</button>
+        <a href="javascript:addProduct({{cart.id}},{{this._id}})"><button>Agregar al carrito</button></a>
     </li>
     <hr/>
     {{/each}}
@@ -18,14 +18,15 @@
   limit:
   {{limit}} --}}
   {{#if hasPrevPage}}
-    <a style='text-decoration: none;' href='/home?querypage={{prevPage}}'>⬅️{{prevPage}}  - - - -  </a>
+    <a style='text-decoration: none;' href='/products?querypage={{prevPage}}'>⬅️{{prevPage}}  - - - -  </a>
   {{/if}}
   pagina
   {{page}}
   de
   {{totalPages}}
   {{#if hasNextPage}}
-    <a style='text-decoration: none;' href='/home?querypage={{nextPage}}'>  - - - -  {{nextPage}}➡️</a>
+    <a style='text-decoration: none;' href='/products?querypage={{nextPage}}'>  - - - -  {{nextPage}}➡️</a>
   {{/if}}
 </p>
 </div>
+<script src="src/services/cartService.js" ></script>

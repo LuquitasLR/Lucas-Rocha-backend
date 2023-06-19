@@ -1,14 +1,37 @@
-export default class cartService {
+import fs from 'fs'
 
-    constructor () {
-        
+export default class cartManager {
+
+    constructor (path) {
+        this.path= path
+        this.carts= []
+        const cartsString= fs.readFileSync(this.path, "utf-8")
+        const carts = JSON.parse(cartsString)
+        this.carts = carts
 
     }
 
 
     newCart (){
 
-       
+        let idMax=0
+        this.carts.forEach((cart) => {
+            if (cart.idCart>idMax){
+                idMax=cart.idCart
+            }
+        });
+        
+        idMax++
+
+        const cart = {
+            idCart: idMax,
+            products: []
+        }
+
+        this.carts.push(cart)
+        const cartString = JSON.stringify(this.carts)
+        fs.writeFileSync(this.path, cartString)
+        return ('carrito creado exitosamente') 
         
     }
 

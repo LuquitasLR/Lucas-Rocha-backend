@@ -44,7 +44,7 @@ app.use("/api/carts" ,cartsRouter)
 
 
 //ENDPOINTS CON VISTAS DE HANDLEBARS
-app.use("/home", vistaProducts)
+app.use("/products", vistaProducts)
 app.use("/realtimeproducts", realTimeProductsRouter)
 app.use("/test-chat", testChatRouter)
 
