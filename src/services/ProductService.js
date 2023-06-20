@@ -7,22 +7,29 @@ class productService {
 
     }
 
-    async addProduct (title, description, code, price, thumbnail, stock, category) {
-            
-        const product = {
+    async addProduct (body) {
 
+        const { title, description, category, status, price, thumbnail, code, stock } = body;
+        if (!title || !description || !category || !price || !thumbnail || !status || !code || !stock) {
+            
+            return({msj:"all fields are required."});
+            
+        }
+        
+        const product = {
+            
             title: title,
             description: description,
             code: code,
-            price: price || 0,
-            status:true,
+            price: price,
+            status:status,
             thumbnail: thumbnail,
-            stock: stock || 0,
+            stock: stock,
             category: category
-
+            
         }
-        await ProductModel.create(product)
-        return ("producto agregado exitosamente")
+        
+        return await ProductModel.create(product)
         
 
     }
@@ -57,11 +64,11 @@ class productService {
 
     async updateProduct (_id,body) {
 
-        const { title, description, category, status, price, code, stock } = body;
-        if (!title || !description || !category || !price || !status || !code || !stock) {
-          console.log("all fields are required.");
+        const { title, description, category, status,thumbnail, price,  code, stock } = body;
+        if (!title || !description || !category || !thumbnail || !price || !code || !stock) {
+            return({msj:"all fields are required."});
         }
-        const productUpdate = await ProductModel.updateOne(
+        await ProductModel.updateOne(
           { _id },
           {
             title,
@@ -69,12 +76,13 @@ class productService {
             category,
             price,
             status,
+            thumbnail,
             code,
             stock,
           }
         );
 
-        return productUpdate;
+        return await ProductModel.findOne({_id:_id})
 
     }
     async paginatedProducts (query,options){

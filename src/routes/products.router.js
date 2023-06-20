@@ -74,8 +74,8 @@ productsRouter.delete("/:pid", async (req, res) => {
 
 productsRouter.post("/", async(req, res) => {
   try{
-    const p = req.body;
-    let added = await products.addProduct(p.title, p.description, p.code, p.price, p.thumbnail, p.stock, p.category)
+    const body = req.body;
+    let added = await products.addProduct(body)
     return res
       .status(200)
       .json({status: "success", msg: added });
@@ -91,8 +91,7 @@ productsRouter.put("/:pid", async(req, res) => {
   try{
     const _id = req.params.pid;
     const body = req.body;
-    const toUpdate = products.updateProduct(_id, body)
-    const mProduct = await products.getProductById(_id);
+    const mProduct = await products.updateProduct(_id, body)
     return res.status(200)
     .json({status: "success", msg: "producto modificado", data: mProduct });}
   catch{
