@@ -20,6 +20,7 @@ cartsRouter.post("/",async (req, res) => {
     try{
       const _id = req.params.cid;
       const finded = await carts.getCart(_id)
+      console.log(JSON.stringify(finded,null,2))
       return res
       .status(200)
       .json({
