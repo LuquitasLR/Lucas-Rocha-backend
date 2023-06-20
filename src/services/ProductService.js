@@ -1,6 +1,6 @@
 import { ProductModel } from '../DAO/models/products.model.js'
 
-export default class productService {
+class productService {
 
     constructor () {
         

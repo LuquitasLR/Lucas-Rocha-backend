@@ -1,53 +1,101 @@
-export default class cartService {
+import { CartModel } from "../DAO/models/cart.model.js"
+
+class cartService {
 
     constructor () {
         
-
     }
 
 
-    newCart (){
-
-       
+    async newCart (){
+        return await CartModel.create({products:[]})
         
     }
 
-    getCart (id) {
+    async getCart (_id) {
 
-        const serchCart = this.carts.find((c) => c.idCart ==id)
-        return serchCart.products
+        return await CartModel.findOne({_id: _id})
 
     }
     
-    addProduct (idCart,idProduct) {
+    async addProduct (idCart,idProduct,quantity) {
 
-        const indexCart= this.carts.findIndex((c)=> c.idCart == idCart)
-        
-        //VERIFICAMOS SI EL PRODUCTO EXISTE
-        const exists = this.carts[indexCart].products.some((p)=> p.idProduct==idProduct)
-        
-        //SI EXISTE AUMENTAMOS LA CANTIDAD
-        if(exists) {
-
-           const indexProduct = this.carts[indexCart].products.findIndex((p)=>p.idProduct==idProduct)
-           this.carts[indexCart].products[indexProduct].quantity++
-           const cartString = JSON.stringify(this.carts)
-           fs.writeFileSync(this.path, cartString)
-           return (`Se aumento exitosamente la cantidad del producto seleccionado(total:${this.carts[indexCart].products[indexProduct].quantity})`)
-        
+        const existCart = await CartModel.findOne({_id:idCart})
+        if(existCart){
+            
+            //VERIFICAMOS SI EXISTE PARA NO DUPLICAR EL PRODUCTO
+            const existProduct = existCart.products.find((prod)=>prod._id==idProduct)
+            if(existProduct){
+                const i = existCart.products.findIndex((prod)=> prod._id== idProduct)
+                existCart.products[i].quantity = quantity
+                await CartModel.updateOne({_id:idCart},existCart)
+                return await CartModel.findOne({_id:idCart})
+            }
+            else{
+                existCart.products.push({_id:idProduct,quantity:quantity})
+                await CartModel.updateOne({_id:idCart},existCart)
+                return await CartModel.findOne({_id:idCart})
+            }
+            
+        }
+        else{
+            return {msj:"No se pudo agregar el producto"}
+        }
+            
+    }
+    async repalceCart (idCart,rCart) {
+        const exist = await CartModel.findOne({_id:idCart})
+        if(exist){
+            await CartModel.updateOne({_id:idCart},rCart)
+            return await CartModel.findOne({_id:idCart})
+        }else{
+            return {msj:"Carrito no encontrado"}
         }
         
-        //SI NO EXISTE CREAMOS EL OBJETO Y LO AGREGAMOS
-        else {
 
-            const newProduct = { idProduct:idProduct, quantity: 1}
-            this.carts[indexCart].products.push(newProduct)
-            const cartString = JSON.stringify(this.carts)
-            fs.writeFileSync(this.path, cartString)
-            return ("Producto agregado exitosamente al carrito")
+    }
+
+    async deleteCart (_id) {
+
+        const exist = await CartModel.findOne({_id:_id})
+        if(exist){
+
+            const empty = {products:[]}
+            await CartModel.updateOne({_id:_id},empty)
+            return await CartModel.findOne({_id:_id})
+
+        }else{
+
+            return {msj:"carrito no encontrado"}
 
         }
 
+    }
+
+    async deleteProduct(idCart,idProduct){
+
+        const existCart = await CartModel.findOne({_id:idCart})
+        if(existCart){
+            const existProduct = existCart.products.find((prod)=>prod._id==idProduct)
+            
+            if(existProduct){
+                const dProduct = existCart.products.filter((prod)=> prod._id !== idProduct)
+                const products = {products:dProduct}
+                console.log(products)
+                await CartModel.updateOne({_id:idCart},products)
+                return await CartModel.findOne({_id:idCart})
+            }
+            else{
+                return {msj:"producto no encontrado"}
+            }
+
+        }else{
+
+            return {msj:"carrito no encontrado"}
+
+        }
 
     }
 }
+
+export const carts = new cartService()
