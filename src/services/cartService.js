@@ -17,6 +17,12 @@ class cartService {
         return await CartModel.findOne({_id: _id})
 
     }
+
+    async getCartPopulated (_id) {
+
+        return await CartModel.findOne({_id: _id}).populate('products.product')
+
+    }
    
     async addProduct (idCart,idProduct,quantity) {
 
@@ -24,15 +30,15 @@ class cartService {
         if(existCart){
             
             //VERIFICAMOS SI EXISTE PARA NO DUPLICAR EL PRODUCTO
-            const existProduct = existCart.products.find((prod)=>prod._id==idProduct)
+            const existProduct = existCart.products.find((products)=>products.product==idProduct)
             if(existProduct){
-                const i = existCart.products.findIndex((prod)=> prod._id== idProduct)
+                const i = existCart.products.findIndex((products)=> products.product== idProduct)
                 existCart.products[i].quantity = quantity
                 await CartModel.updateOne({_id:idCart},existCart)
                 return await CartModel.findOne({_id:idCart})
             }
             else{
-                existCart.products.push({_id:idProduct,quantity:quantity})
+                existCart.products.push({product:idProduct,quantity:quantity})
                 await CartModel.updateOne({_id:idCart},existCart)
                 return await CartModel.findOne({_id:idCart})
             }
@@ -76,10 +82,10 @@ class cartService {
 
         const existCart = await CartModel.findOne({_id:idCart})
         if(existCart){
-            const existProduct = existCart.products.find((prod)=>prod._id==idProduct)
+            const existProduct = existCart.products.find((prod)=>prod.product==idProduct)
             
             if(existProduct){
-                const dProduct = existCart.products.filter((prod)=> prod._id !== idProduct)
+                const dProduct = existCart.products.filter((prod)=> prod.product != idProduct)
                 const products = {products:dProduct}
                 console.log(products)
                 await CartModel.updateOne({_id:idCart},products)
