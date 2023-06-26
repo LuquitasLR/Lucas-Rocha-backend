@@ -1,8 +1,5 @@
 import express from "express";
 export const realTimeProductsRouter = express.Router();
-import {products} from '../services/productService.js'
-
-const getProducts = products.getProducts()
 
 realTimeProductsRouter.get("/", (req,res) => {
 

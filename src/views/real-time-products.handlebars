@@ -24,6 +24,10 @@
                 <input type="number" name="price" id="form-price">
             </div>
             <div>
+                <label for="status">Estado:</label>
+                <input type="string" name="status" id="form-status">
+            </div>
+            <div>
                 <label for="thumbnail"> URL de la imagen:</label>
                 <input type="text" name="thumbnail" id="form-thumbnail">
             </div>
@@ -38,6 +42,12 @@
             <input id="send" type="submit" value="Crear Producto">
         </div>
     </form>
+</div>
+<div>
+   <form id="deleteProductForm">
+    <input type="text" name="productId" placeholder="Id del Producto"  />
+    <button type="submit">Borrar Producto</button>
+  </form> 
 </div>
 <script src="/socket.io/socket.io.js"></script>
 <script src="/js/index.js"></script>

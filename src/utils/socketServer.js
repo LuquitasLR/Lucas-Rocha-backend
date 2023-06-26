@@ -4,43 +4,60 @@ import { Server } from 'socket.io';
 
 export function socketServerConection (httpServer){
 
-    const socketServer = new Server(httpServer);
+  const socketServer = new Server(httpServer);
 
-    socketServer.on ("connection", (socket) => {
-      console.log (socket.id, "socket conectado")
-      socket.emit("conectado", {msj:"conexion establecida"})
-      socket.on ("new-product", async (newProduct) => {
-        try {
-          
-          console.log (newProduct+"desde el back")
-          products.addProduct(newProduct.title, newProduct.description, newProduct.code,
-            newProduct.price, newProduct.thumbnail, newProduct.stock, newProduct.category)
-            const pl= await products.getProducts()
-            socketServer.emit("products",pl)
-          }  
-          catch (e) {
-            console.log(e)
-          }
-        })
-        
-              
-      socket.on("test",(msj) => {console.log (JSON.stringify(msj))})
+  socketServer.on ("connection", (socket) => {
+
+    console.log (socket.id, "socket conectado")
+    
+    socket.on("deleteProduct",async(_id) => {
+      console.log (_id)
+       await products.deleteProduct(_id)
+       emitProductsList()
+    })
+
+    socket.emit("conectado", {msj:"conexion establecida"})
+    
+    socket.on ("new-product", async (newProduct) => {
       
-      socketServer.emit("updatedProducts",async ()=>{
-        try{
-          let prod = await products.getProducts()
-        }
-        catch (e) {
-          console.log(e)
-        }
-        })
+      try {
         
-     socket.on('msg_front_to_back', async (msg) => {
+        console.log (newProduct+"desde el back")
+        //const{title,description,code,price,status,thumbnail,stock,category}=newProduct
+        //const body={title,description,code,price,status,thumbnail,stock,category}
+        products.addProduct(newProduct)
+          const pl= await products.getProducts()
+          socketServer.emit("products",pl)
+          emitProductsList()
+      }  
+      catch (e) {
+          console.log(e)
+      }
+        
+    })
+      
+      
+      
+    socket.on('msg_front_to_back', async (msg) => {
+
       const msgCreated= await MsgModel.create(msg);
       const msgs = await MsgModel.find({});
       socketServer.emit('msg_back_to_front', msgs);
+        
+    })
+
+    const emitProductsList= async()=>{
+      try{
+        const prod= await products.getProducts()
+        socket.emit("updatedProducts",prod)
+      }
+      catch{console.log("error")}
+      
+    }
+
+    emitProductsList()
+  })
     
-    }) })
-
-}
-
+  }
+  
+  
