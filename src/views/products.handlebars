@@ -1,5 +1,11 @@
 <div>
- <h1>Lista de productos disponibles:</h1>   
+  <div>
+     <h1>Bienvenido {{user}}!</h1>
+     {{#if user}}
+    <a href="/api/sessions/logout"><button>Logout!</button></a>
+  {{/if}}
+  </div>
+   <h2>Lista de productos disponibles:</h2>
  <ol>{{#each paginatedProducts}}
     <li>
         <h3>Producto: {{this.title}}</h3>
@@ -13,10 +19,6 @@
  </ol>
  <h3>paginacion</h3>
 <p>
-  {{!-- totalDocs:
-  {{totalDocs}}
-  limit:
-  {{limit}} --}}
   {{#if hasPrevPage}}
     <a style='text-decoration: none;' href='/products?querypage={{prevPage}}'>⬅️{{prevPage}}  - - - -  </a>
   {{/if}}

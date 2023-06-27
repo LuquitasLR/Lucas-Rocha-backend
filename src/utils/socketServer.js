@@ -26,12 +26,13 @@ export function socketServerConection (httpServer){
         //const{title,description,code,price,status,thumbnail,stock,category}=newProduct
         //const body={title,description,code,price,status,thumbnail,stock,category}
         products.addProduct(newProduct)
-          const pl= await products.getProducts()
-          socketServer.emit("products",pl)
-          emitProductsList()
+        const pl= await products.getProducts()
+        socketServer.emit("products",pl)
+        emitProductsList()
       }  
+      
       catch (e) {
-          console.log(e)
+        console.log(e)
       }
         
     })
