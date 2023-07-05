@@ -2,9 +2,8 @@ import { UserModel } from "../DAO/models/users.model.js";
 
 class userService {
 
-    async newUser (name,lastName,mail,password){
+    async newUser (user){
         try{
-            const user ={name,lastName,mail,password}
             UserModel.create(user)
             return "usuario creado!"
         }
@@ -13,9 +12,9 @@ class userService {
         }
     }
 
-    async findUser (mail,password) {
+    async findUser (mail) {
         try{
-           return await UserModel.findOne({mail:mail,password:password})
+           return await UserModel.findOne({mail:mail})
 
         }
         catch{
