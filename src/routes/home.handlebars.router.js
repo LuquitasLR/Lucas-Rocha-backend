@@ -9,7 +9,7 @@ vistaProducts.get("/", async (req,res) => {
         const queryResult = await products.paginatedProducts({},{ sort:{},limit:5,page:querypage})
         let paginatedProducts= queryResult.docs
         const { totalDocs, limit, totalPages, page, pagingCounter, hasPrevPage, hasNextPage, prevPage, nextPage } = queryResult;
-        const user= req.session.user
+        const user= req.user.mail
         paginatedProducts= paginatedProducts.map((product)=>{
             return {
                 _id:product._id.toString(),

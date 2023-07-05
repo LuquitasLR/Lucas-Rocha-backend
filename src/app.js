@@ -1,19 +1,21 @@
+import MongoStore from 'connect-mongo';
 import express from 'express';
 import handlebars from "express-handlebars";
+import session from 'express-session';
+import passport from 'passport';
 import path from "path";
 import { __dirname } from './config.js';
+import { iniPassport } from './config/passport.config.js';
 import { cartsRouter } from './routes/carts.router.js';
 import { vistaProducts } from './routes/home.handlebars.router.js';
 import { productsRouter } from './routes/products.router.js';
 import { realTimeProductsRouter } from './routes/real-time-products.handlebars.router.js';
-import {sessionsRouter} from './routes/sessions.router.js'
-import {sessionsViewsRouter} from './routes/sessions.views.router.js'
+import { sessionsRouter } from './routes/sessions.router.js';
+import { sessionsViewsRouter } from './routes/sessions.views.router.js';
 import { testChatRouter } from './routes/test-chat.router.js';
 import { connectMongo } from './utils/dbconection.js';
 import { socketServerConection } from './utils/socketServer.js';
-import session from 'express-session';
-import MongoStore from 'connect-mongo';
-
+import { authRouter } from './routes/auth.router.js';
 const app = express()
 const port = 8080
 
@@ -38,6 +40,10 @@ app.use(session({
   })
 }))
 
+iniPassport();
+app.use(passport.initialize());
+app.use(passport.session());
+
 
 //CONFIG DEL MOTOR DE PLANTILLAS
 app.engine("handlebars", handlebars.engine());
@@ -60,6 +66,7 @@ app.use("/products", vistaProducts)
 app.use("/realtimeproducts", realTimeProductsRouter)
 app.use("/test-chat", testChatRouter)
 app.use("/sessions",sessionsViewsRouter)
+app.use("/auth",authRouter)
 
 //ENDPOINT INDEX
 app.get('/', (req,res)=>{
