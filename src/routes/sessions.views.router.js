@@ -12,7 +12,7 @@ sessionsViewsRouter.get('/register', (req, res) => {
 })
 
 sessionsViewsRouter.get('/login', (req, res) => {
-   res.render('login')
+   res.render('login-github')
 });
 
 sessionsViewsRouter.get('/logout', (req, res) => {
@@ -31,3 +31,4 @@ sessionsViewsRouter.get('/profile', isUser, (req, res) => {
 sessionsViewsRouter.get('/admin', isAdmin, (req, res) => {
     res.render('admin');
 });
+

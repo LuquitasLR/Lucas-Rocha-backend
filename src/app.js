@@ -6,6 +6,7 @@ import passport from 'passport';
 import path from "path";
 import { __dirname } from './config.js';
 import { iniPassport } from './config/passport.config.js';
+import { authRouter } from './routes/auth.router.js';
 import { cartsRouter } from './routes/carts.router.js';
 import { vistaProducts } from './routes/home.handlebars.router.js';
 import { productsRouter } from './routes/products.router.js';
@@ -15,7 +16,6 @@ import { sessionsViewsRouter } from './routes/sessions.views.router.js';
 import { testChatRouter } from './routes/test-chat.router.js';
 import { connectMongo } from './utils/dbconection.js';
 import { socketServerConection } from './utils/socketServer.js';
-import { authRouter } from './routes/auth.router.js';
 const app = express()
 const port = 8080
 
