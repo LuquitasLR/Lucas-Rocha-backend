@@ -1,5 +1,6 @@
 import passport from 'passport';
 import { UserModel } from '../DAO/models/users.model.js';
+import {users} from '../services/userService.js'
 import fetch from 'node-fetch';
 import GitHubStrategy from 'passport-github2';
 import local from 'passport-local';
@@ -34,14 +35,16 @@ export function iniPassport() {
           }
           profile.email = emailDetail.email;
 
-          let user = await UserModel.findOne({ mail: profile.email });
+          let user = await users.findUser(profile.email);
           if (!user) {
             const newUser = {
-              name: profile._json.name || profile._json.login || 'noname',
+              firstName: profile._json.name || profile._json.login || 'noname',
               lastName: 'nolast',
               mail: profile.email,
+              age: 0,
+              cart:'',
               password: 'nopass',
-              isAdmin: false,
+              role: 'user',
             };
             let userCreated = await UserModel.create(newUser);
             console.log('User Registration succesful');
@@ -63,7 +66,7 @@ export function iniPassport() {
     'login',
     new LocalStrategy({ usernameField: 'mail' }, async (username, password, done) => {
       try {
-        const user = await UserModel.findOne({ mail: username });
+        const user = await users.findUser(username);
         if (!user) {
           console.log('User Not Found with username (mail) ' + username);
           return done(null, false);
@@ -89,19 +92,21 @@ export function iniPassport() {
       },
       async (req, username, password, done) => {
         try {
-          const { mail, name, lastName } = req.body;
-          let user = await UserModel.findOne({ email: username });
+          const { mail, firstName, age, lastName } = req.body;
+          const user = await users.findUser(username);
           if (user) {
             console.log('User already exists');
             return done(null, false);
           }
 
           const newUser = {
-            name,
+            firstName,
             lastName,
             mail,
+            age,
+            cart:'',
             password: createHash(password),
-            isAdmin: false,
+            role: 'user',
           };
           let userCreated = await UserModel.create(newUser);
           console.log(userCreated);

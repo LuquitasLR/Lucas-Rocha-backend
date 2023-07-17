@@ -13,3 +13,14 @@ sessionsRouter.get('/githubcallback', passport.authenticate('github', { failureR
 sessionsRouter.get('/show', (req, res) => {
   return res.send(JSON.stringify(req.session));
 });
+
+sessionsRouter.get('/current', (req, res) => {
+  if (!req.user) {
+    return res.render('error-page',{error:'No hay ninguna sesión activa.'});
+  }
+  else{
+    res.send(JSON.stringify(req.session.user))
+
+  }
+
+});

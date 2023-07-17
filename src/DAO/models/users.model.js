@@ -1,11 +1,13 @@
 import { Schema, model } from 'mongoose';
 
 const schema = new Schema({
-  name:{type:String, required:true, max:100},
+  firstName:{type:String, required:true, max:100},
   lastName:{type:String, required:true, max:100},
   mail: { type: String, required: true, max: 100 },
-  password:{type:String, required:true, max:100},
-  isAdmin: {type: Boolean, required: true, default: false},
+  age: {type: Number},
+  password:{type:String, required:false, max:100},
+  cart:{type:String, required:false},
+  role: {type: String, required: true, default: "user"},
 });
 
 export const UserModel = model('users', schema);

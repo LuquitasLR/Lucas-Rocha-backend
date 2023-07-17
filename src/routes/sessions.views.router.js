@@ -32,3 +32,5 @@ sessionsViewsRouter.get('/admin', isAdmin, (req, res) => {
     res.render('admin');
 });
 
+
+

@@ -1,10 +1,20 @@
 import { UserModel } from "../DAO/models/users.model.js";
+import { createHash, isValidPassword } from '../config.js';
 
 class userService {
 
-    async newUser (user){
+    async newUser (firstName, lastName, mail, age, password){
         try{
-            UserModel.create(user)
+            const newUser = {
+                firstName,
+                lastName,
+                mail,
+                age,
+                cart:"",
+                password: createHash(password),
+                role:"user"
+              }
+            UserModel.create(newUser)
             return "usuario creado!"
         }
         catch{

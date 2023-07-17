@@ -1,11 +1,13 @@
 <div><h1>Ingrese sus datos para registrarse!</h1>
     <form action="/auth/register" method="post" >
         <label for="name">Nombre:</label>
-        <input type="name" required="true" name="name" id="form-name">
+        <input type="name" required="true" name="firstName" id="form-name">
         <label for="lastName">Apellido:</label>
         <input type="lastName" name="lastName" required="true"id="form-lastName">
         <label for="mail">Mail:</label>
         <input type="email" required="true" name="mail" id="form-mail">
+        <label for="age">Edad:</label>
+        <input type="number" required="true" style="width: 35px" name="age" id="form-mail">
         <label for="password">Password:</label>
         <input type="password" name="password" required="true"id="form-password">
         <input type="submit" name="submit"  id="form-submit">
