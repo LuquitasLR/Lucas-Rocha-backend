@@ -17,9 +17,10 @@ import { testChatRouter } from './routes/test-chat.router.js';
 import { connectMongo } from './utils/dbconection.js';
 import { socketServerConection } from './utils/socketServer.js';
 import env from './config/enviroment.config.js'
-const app = express()
-const port = env.port
+
 console.log(env)
+const app = express()
+const port = 8080
 
 export const httpServer = app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
@@ -36,7 +37,7 @@ app.use(session({
   resave:true,
   saveUninitialized:true,
   store: MongoStore.create({
-    mongoUrl:env.mongoUrl,
+    mongoUrl:env.persistence,
     mongoOptions:{useNewUrlParser:true,useUnifiedTopology:true},
     ttl:150
   })

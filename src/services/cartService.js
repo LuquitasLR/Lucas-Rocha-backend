@@ -1,6 +1,6 @@
 import { cartModel } from "../DAO/models/cart.model.js"
 
-class cartService {
+class CartService {
 
     constructor () {
         
@@ -101,4 +101,4 @@ class cartService {
     }
 }
 
-export const cartService = new cartService()
+export const cartService = new CartService()

@@ -1,6 +1,6 @@
 import {userMongoose} from '../mongoose/users.mongoose.js'
 
-class userModel {
+class UserModel {
 
     async create(user){
         return await userMongoose.create(user)
@@ -25,4 +25,4 @@ class userModel {
     }
 }
 
-export const userModel = new userModel()
+export const userModel = new UserModel()

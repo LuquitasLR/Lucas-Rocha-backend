@@ -1,6 +1,6 @@
 import {cartMongoose} from '../mongoose/cart.mongoose.js'
 
-class cartModel {
+class CartModel {
 
     async create(cart){
         return await cartMongoose.create(cart)
@@ -20,4 +20,4 @@ class cartModel {
     }
 }
 
-export const cartModel = new cartModel()
+export const cartModel = new CartModel()

@@ -1,6 +1,6 @@
 import {productService} from '../../services/productService.js'
 
-class productController {
+class ProductController {
 
     getProduct = async (req, res) => {
         try{
@@ -131,4 +131,4 @@ class productController {
 }
 
 
-export const productController = new productController()
+export const productController = new ProductController()

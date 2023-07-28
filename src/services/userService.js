@@ -1,7 +1,7 @@
 import { userModel } from "../DAO/models/users.model.js";
 import { createHash} from '../config.js';
 
-class userService {
+class UserService {
 
     async newUser (firstName, lastName, mail, age, password){
         try{
@@ -34,4 +34,4 @@ class userService {
 
 }
 
-export const users = new userService()
+export const users = new UserService()

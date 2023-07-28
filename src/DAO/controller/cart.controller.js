@@ -1,6 +1,6 @@
 import {cartService} from '../../services/cartService.js'
 
-class cartController {
+class CartController {
 
     newCart = async (req,res)=>{
         try{
@@ -105,4 +105,4 @@ class cartController {
 }
 
 
-export const cartController = new cartController()
+export const cartController = new CartController()

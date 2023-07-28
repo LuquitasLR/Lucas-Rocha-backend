@@ -1,6 +1,6 @@
 import {productMongoose} from '../mongoose/products.mongoose.js'
 
-class productModel {
+class ProductModel {
 
     async create(product){
         return await productMongoose.create(product)
@@ -29,4 +29,4 @@ class productModel {
     }
 }
 
-export const productModel = new productModel()
+export const productModel = new ProductModel()

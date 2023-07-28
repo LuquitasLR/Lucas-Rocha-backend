@@ -1,6 +1,6 @@
 import { productModel } from '../DAO/models/products.model.js'
 
-class productService {
+class ProductService {
 
     constructor () {
         
@@ -89,4 +89,4 @@ class productService {
     }
 }
 
-export const productService = new productService()
+export const productService = new ProductService()
