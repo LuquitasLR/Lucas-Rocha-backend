@@ -1,19 +1,23 @@
-import { Schema, model } from 'mongoose';
+import {cartMongoose} from '../mongoose/cart.mongoose.js'
 
-const cartSchema = new Schema({
-  products:{ 
-    type:[
-      {  product:{
-          type:Schema.Types.ObjectId, 
-          ref:"products",
-          },
-          quantity:{type:Number}
-      }
-    ]},
-});
+class cartModel {
 
-// cartSchema.pre('findOne', function(){
-//   this.populate('products.product')
-// })
+    async create(cart){
+        return await cartMongoose.create(cart)
+    }
 
-export const CartModel = model('cart', cartSchema);
+    async getCart (_id){
+        return await cartMongoose.findOne({_id: _id})
+    }
+
+    async getCartAndPopulate (_id, populateProps) {
+        return await cartMongoose.findOne({_id: _id}).populate(populateProps)
+
+    }
+    async update (_id, updatedCart) {
+        return await cartMongoose.updateOne({_id:_id},updatedCart)
+
+    }
+}
+
+export const cartModel = new cartModel()

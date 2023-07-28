@@ -1,13 +1,28 @@
-import { Schema, model } from 'mongoose';
+import {userMongoose} from '../mongoose/users.mongoose.js'
 
-const schema = new Schema({
-  firstName:{type:String, required:true, max:100},
-  lastName:{type:String, required:true, max:100},
-  mail: { type: String, required: true, max: 100 },
-  age: {type: Number},
-  password:{type:String, required:false, max:100},
-  cart:{type:String, required:false},
-  role: {type: String, required: true, default: "user"},
-});
+class userModel {
 
-export const UserModel = model('users', schema);
+    async create(user){
+        return await userMongoose.create(user)
+    }
+
+    async getUser (mail){
+        return await userMongoose.findOne({mail:mail})
+    }
+
+    async findById (_id){
+        return await userMongoose.findById(_id)
+    }
+
+    async deleteUser (_id) {
+        return await userMongoose.findByIdAndDelete(_id)
+    }
+
+
+    async update (_id, updatedUser) {
+        return await userMongoose.updateOne({_id:_id},updatedUser)
+
+    }
+}
+
+export const userModel = new userModel()

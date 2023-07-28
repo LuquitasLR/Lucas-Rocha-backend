@@ -1,5 +1,5 @@
-import { MsgModel } from '../DAO/models/msgs.model.js'
-import { products } from "../services/productService.js";
+import { MsgModel } from '../DAO/mongoose/msgs.mongoose.js'
+import { productService } from "../services/productService.js";
 import { Server } from 'socket.io';
 
 export function socketServerConection (httpServer){
@@ -12,7 +12,7 @@ export function socketServerConection (httpServer){
     
     socket.on("deleteProduct",async(_id) => {
       console.log (_id)
-       await products.deleteProduct(_id)
+       await productService.deleteProduct(_id)
        emitProductsList()
     })
 
@@ -25,8 +25,8 @@ export function socketServerConection (httpServer){
         console.log (newProduct+"desde el back")
         //const{title,description,code,price,status,thumbnail,stock,category}=newProduct
         //const body={title,description,code,price,status,thumbnail,stock,category}
-        products.addProduct(newProduct)
-        const pl= await products.getProducts()
+        productService.addProduct(newProduct)
+        const pl= await productService.getAll()
         socketServer.emit("products",pl)
         emitProductsList()
       }  
@@ -49,7 +49,7 @@ export function socketServerConection (httpServer){
 
     const emitProductsList= async()=>{
       try{
-        const prod= await products.getProducts()
+        const prod= await productService.getAll()
         socket.emit("updatedProducts",prod)
       }
       catch{console.log("error")}

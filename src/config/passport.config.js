@@ -1,5 +1,5 @@
 import passport from 'passport';
-import { UserModel } from '../DAO/models/users.model.js';
+import { userModel } from '../DAO/models/users.model.js';
 import {users} from '../services/userService.js'
 import fetch from 'node-fetch';
 import GitHubStrategy from 'passport-github2';
@@ -46,7 +46,7 @@ export function iniPassport() {
               password: 'nopass',
               role: 'user',
             };
-            let userCreated = await UserModel.create(newUser);
+            let userCreated = await userModel.create(newUser);
             console.log('User Registration succesful');
             return done(null, userCreated);
           } else {
@@ -108,7 +108,7 @@ export function iniPassport() {
             password: createHash(password),
             role: 'user',
           };
-          let userCreated = await UserModel.create(newUser);
+          let userCreated = await userModel.create(newUser);
           console.log(userCreated);
           console.log('User Registration succesful');
           return done(null, userCreated);
@@ -126,7 +126,7 @@ export function iniPassport() {
   });
 
   passport.deserializeUser(async (id, done) => {
-    let user = await UserModel.findById(id);
+    let user = await userModel.findById(id);
     done(null, user);
   });
 }

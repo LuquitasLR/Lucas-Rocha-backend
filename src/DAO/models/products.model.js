@@ -1,17 +1,32 @@
-import { Schema, model } from 'mongoose';
-import mongoosePaginate from "mongoose-paginate-v2"
+import {productMongoose} from '../mongoose/products.mongoose.js'
 
-const schema = new Schema({
-    
-    title: { type: String, required: true, max: 100, index: true },
-    description: { type: String, required: true, max: 100 },
-    code: { type: String, required: true, max: 100 },
-    price: { type: Number, required: true },
-    status: { type: String, required: true, max: 100 },
-    thumbnail: { type: String, required: true, max: 500 },
-    stock: { type: Number, required: true },
-    category: { type: String, required: true, max: 100 },
+class productModel {
 
-});
-schema.plugin(mongoosePaginate)
-export const ProductModel = model('products', schema);
+    async create(product){
+        return await productMongoose.create(product)
+    }
+
+    async getAll (){
+        return await productMongoose.find({})
+    }
+
+    async getProduct (_id){
+        return await productMongoose.findOne({_id: _id})
+    }
+
+    async deleteProduct (_id) {
+        return await productMongoose.findByIdAndDelete(_id)
+    }
+
+    async paginatedProducts (query,options){
+        return await productMongoose.paginate(query,options)
+         
+    }
+
+    async update (_id, updatedProduct) {
+        return await productMongoose.updateOne({_id:_id},updatedProduct)
+
+    }
+}
+
+export const productModel = new productModel()

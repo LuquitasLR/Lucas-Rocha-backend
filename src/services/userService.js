@@ -1,5 +1,5 @@
-import { UserModel } from "../DAO/models/users.model.js";
-import { createHash, isValidPassword } from '../config.js';
+import { userModel } from "../DAO/models/users.model.js";
+import { createHash} from '../config.js';
 
 class userService {
 
@@ -14,7 +14,7 @@ class userService {
                 password: createHash(password),
                 role:"user"
               }
-            UserModel.create(newUser)
+            userModel.create(newUser)
             return "usuario creado!"
         }
         catch{
@@ -22,9 +22,9 @@ class userService {
         }
     }
 
-    async findUser (mail) {
+    async getUser (mail) {
         try{
-           return await UserModel.findOne({mail:mail})
+           return await userModel.getUser(mail)
 
         }
         catch{

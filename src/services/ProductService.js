@@ -1,4 +1,4 @@
-import { ProductModel } from '../DAO/models/products.model.js'
+import { productModel } from '../DAO/models/products.model.js'
 
 class productService {
 
@@ -29,19 +29,18 @@ class productService {
             
         }
         
-        return await ProductModel.create(product)
+        return await productModel.create(product)
         
 
     }
 
-    async getProducts (){
-        let products = await ProductModel.find({})
-        return products
+    async getAll (){ 
+        return await productModel.getAll()
     }
 
-    async getProductById (id) {
+    async getProduct (_id) { 
 
-        const find = await ProductModel.findOne({_id: id})
+        const find = await productModel.getProduct(_id)
         
 
         if( find ) {
@@ -57,7 +56,7 @@ class productService {
 
         async deleteProduct (_id) {
         
-        await ProductModel.findByIdAndDelete(_id)
+        await productModel.deleteProduct(_id)
 
 
     }
@@ -68,8 +67,8 @@ class productService {
         if (!title || !description || !category || !thumbnail || !price || !code || !stock) {
             return({msj:"all fields are required."});
         }
-        await ProductModel.updateOne(
-          { _id },
+        await productModel.update(
+            _id ,
           {
             title,
             description,
@@ -82,13 +81,12 @@ class productService {
           }
         );
 
-        return await ProductModel.findOne({_id:_id})
+        return await productModel.getProduct(_id)
 
     }
-    async paginatedProducts (query,options){
-        const res = await ProductModel.paginate(query,options)
-        return res
+    async getPaginatedProducts (query,options){
+        return await productModel.paginatedProducts(query,options)
     }
 }
 
-export const products = new productService()
+export const productService = new productService()

@@ -1,4 +1,4 @@
-import { CartModel } from "../DAO/models/cart.model.js"
+import { cartModel } from "../DAO/models/cart.model.js"
 
 class cartService {
 
@@ -8,25 +8,23 @@ class cartService {
 
 
     async newCart (){
-        return await CartModel.create({products:[]})
+        return await cartModel.create({products:[]})
         
     }
 
     async getCart (_id) {
-
-        return await CartModel.findOne({_id: _id})
+        return await cartModel.getCart(_id)
 
     }
 
     async getCartPopulated (_id) {
-
-        return await CartModel.findOne({_id: _id}).populate('products.product')
+        return await cartModel.getCartAndPopulate(_id, 'products.product')
 
     }
    
     async addProduct (idCart,idProduct,quantity) {
 
-        const existCart = await CartModel.findOne({_id:idCart})
+        const existCart = await cartModel.getCart(idCart)
         if(existCart){
             
             //VERIFICAMOS SI EXISTE PARA NO DUPLICAR EL PRODUCTO
@@ -34,13 +32,13 @@ class cartService {
             if(existProduct){
                 const i = existCart.products.findIndex((products)=> products.product== idProduct)
                 existCart.products[i].quantity = quantity
-                await CartModel.updateOne({_id:idCart},existCart)
-                return await CartModel.findOne({_id:idCart})
+                await cartModel.update(idCart,existCart)
+                return cartModel.getCart(idCart)
             }
             else{
                 existCart.products.push({product:idProduct,quantity:quantity})
-                await CartModel.updateOne({_id:idCart},existCart)
-                return await CartModel.findOne({_id:idCart})
+                await cartModel.update(idCart,existCart)
+                return cartModel.getCart(idCart)
             }
             
         }
@@ -50,10 +48,10 @@ class cartService {
             
     }
     async repalceCart (idCart,rCart) {
-        const exist = await CartModel.findOne({_id:idCart})
+        const exist = await cartModel.getCart(idCart)
         if(exist){
-            await CartModel.updateOne({_id:idCart},rCart)
-            return await CartModel.findOne({_id:idCart})
+            await cartModel.update(idCart,rCart)
+            return cartModel.getCart(idCart)
         }else{
             return {msj:"Carrito no encontrado"}
         }
@@ -63,12 +61,12 @@ class cartService {
 
     async deleteCart (_id) {
 
-        const exist = await CartModel.findOne({_id:_id})
+        const exist = await cartModel.getCart(_id)
         if(exist){
 
             const empty = {products:[]}
-            await CartModel.updateOne({_id:_id},empty)
-            return await CartModel.findOne({_id:_id})
+            await cartModel.update(_id,empty)
+            return await cartModel.getCart(_id)
 
         }else{
 
@@ -80,16 +78,15 @@ class cartService {
 
     async deleteProduct(idCart,idProduct){
 
-        const existCart = await CartModel.findOne({_id:idCart})
+        const existCart = await cartModel.getCart(idCart)
         if(existCart){
             const existProduct = existCart.products.find((prod)=>prod.product==idProduct)
             
             if(existProduct){
                 const dProduct = existCart.products.filter((prod)=> prod.product != idProduct)
                 const products = {products:dProduct}
-                console.log(products)
-                await CartModel.updateOne({_id:idCart},products)
-                return await CartModel.findOne({_id:idCart})
+                await cartModel.update(idCart,products)
+                return await cartModel.getCart(idCart)
             }
             else{
                 return {msj:"producto no encontrado"}
@@ -104,4 +101,4 @@ class cartService {
     }
 }
 
-export const carts = new cartService()
+export const cartService = new cartService()
