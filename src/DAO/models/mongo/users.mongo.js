@@ -1,4 +1,4 @@
-import {userMongoose} from '../mongoose/users.mongoose.js'
+import {userMongoose} from '../../mongoose/users.mongoose.js'
 
 class UserModel {
 

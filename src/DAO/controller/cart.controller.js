@@ -15,7 +15,7 @@ class CartController {
           }
     }
 
-    getCart = async (req, res) => {updateProduct
+    getCart = async (req, res) => {
         try{
           const _id = req.params.cid;
           const finded = await cartService.getCartPopulated(_id)

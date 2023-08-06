@@ -1,5 +1,6 @@
 import passport from 'passport';
 import express from 'express';
+import userDTO from '../DAO/DTOs/user.dto.js';
 export const sessionsRouter = express.Router();
 
 sessionsRouter.get('/github', passport.authenticate('github', { scope: ['user:email'] }));
@@ -19,7 +20,8 @@ sessionsRouter.get('/current', (req, res) => {
     return res.render('error-page',{error:'No hay ninguna sesión activa.'});
   }
   else{
-    res.send(JSON.stringify(req.session.user))
+    const user = new userDTO (req.session.user)
+    res.send(JSON.stringify(user))
 
   }
 

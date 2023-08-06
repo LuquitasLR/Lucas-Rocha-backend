@@ -39,7 +39,7 @@ app.use(session({
   store: MongoStore.create({
     mongoUrl:env.persistence,
     mongoOptions:{useNewUrlParser:true,useUnifiedTopology:true},
-    ttl:150
+    ttl:5000
   })
 }))
 

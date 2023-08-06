@@ -1,14 +1,14 @@
 import passport from 'passport';
 
 export function isUser(req, res, next) {
-  if (req.session?.user?.email) {
+  if (req.session?.user?.role=="user") {
     return next();
   }
   return res.status(401).render('error-page', { error: 'error de autenticacion!' });
 }
 
 export function isAdmin(req, res, next) {
-  if (req.session?.user?.isAdmin) {
+  if (req.session?.user?.role=="admin") {
     return next();
   }
   return res.status(403).render('error-page', { error: 'error de autorización!' });
@@ -35,4 +35,12 @@ export function passportCall(strategy) {
     next();
     })(req, res, next);
     };
+}
+
+export function checkCart (req, res, next){
+
+  if (req.session?.user?.cart==req.params.cid) {
+    return next();
+  }
+  return res.status(403).json({ error: 'error de autorización!' });
 }

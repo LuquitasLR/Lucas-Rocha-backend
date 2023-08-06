@@ -1,4 +1,5 @@
-import { productModel } from '../DAO/models/products.model.js'
+import { productModel } from '../DAO/models/mongo/products.mongo.js'
+//import {productModel} from '../DAO/models/memory/product.memory.js'
 
 class ProductService {
 

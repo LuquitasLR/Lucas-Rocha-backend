@@ -1,6 +1,6 @@
 import passport from 'passport';
-import { userModel } from '../DAO/models/users.model.js';
-import {users} from '../services/userService.js'
+import {userService} from '../services/userService.js'
+import {cartService} from '../services/cartService.js'
 import fetch from 'node-fetch';
 import GitHubStrategy from 'passport-github2';
 import local from 'passport-local';
@@ -35,18 +35,19 @@ export function iniPassport() {
           }
           profile.email = emailDetail.email;
 
-          let user = await users.findUser(profile.email);
+          let user = await userService.getUser(profile.email);
           if (!user) {
+            const newCart = await cartService.newCart()
             const newUser = {
               firstName: profile._json.name || profile._json.login || 'noname',
               lastName: 'nolast',
               mail: profile.email,
               age: 0,
-              cart:'',
+              cart: newCart._id,
               password: 'nopass',
               role: 'user',
             };
-            let userCreated = await userModel.create(newUser);
+            const userCreated = await userService.newUser(newUser);
             console.log('User Registration succesful');
             return done(null, userCreated);
           } else {
@@ -66,7 +67,7 @@ export function iniPassport() {
     'login',
     new LocalStrategy({ usernameField: 'mail' }, async (username, password, done) => {
       try {
-        const user = await users.findUser(username);
+        const user = await userService.getUser(username);
         if (!user) {
           console.log('User Not Found with username (mail) ' + username);
           return done(null, false);
@@ -93,25 +94,27 @@ export function iniPassport() {
       async (req, username, password, done) => {
         try {
           const { mail, firstName, age, lastName } = req.body;
-          const user = await users.findUser(username);
+          const user = await userService.getUser(username);
           if (user) {
             console.log('User already exists');
             return done(null, false);
           }
-
-          const newUser = {
+          else{
+            const newCart = await cartService.newCart()
+            const newUser = {
             firstName,
             lastName,
             mail,
             age,
-            cart:'',
+            cart: newCart._id,
             password: createHash(password),
             role: 'user',
-          };
-          let userCreated = await userModel.create(newUser);
-          console.log(userCreated);
-          console.log('User Registration succesful');
-          return done(null, userCreated);
+            };
+            let userCreated = await userService.newUser(newUser);
+            console.log(userCreated);
+            console.log('User Registration succesful');
+            return done(null, userCreated);
+        }
         } catch (e) {
           console.log('Error in register');
           console.log(e);
@@ -126,7 +129,7 @@ export function iniPassport() {
   });
 
   passport.deserializeUser(async (id, done) => {
-    let user = await userModel.findById(id);
+    let user = await userService.findById(id);
     done(null, user);
   });
 }

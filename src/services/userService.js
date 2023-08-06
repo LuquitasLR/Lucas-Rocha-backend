@@ -1,21 +1,11 @@
-import { userModel } from "../DAO/models/users.model.js";
-import { createHash} from '../config.js';
+import { userModel } from "../DAO/models/mongo/users.mongo.js";
+//import {userModel} from '../DAO/models/memory/users.memory.js'
 
 class UserService {
 
-    async newUser (firstName, lastName, mail, age, password){
+    async newUser (newUser){
         try{
-            const newUser = {
-                firstName,
-                lastName,
-                mail,
-                age,
-                cart:"",
-                password: createHash(password),
-                role:"user"
-              }
-            userModel.create(newUser)
-            return "usuario creado!"
+           return userModel.create(newUser)
         }
         catch{
             throw "error";
@@ -32,6 +22,16 @@ class UserService {
         }
     }
 
+    async findById (_id) {
+        try{
+            return await userModel.findById(_id)
+ 
+         }
+         catch{
+             throw "usuario no encontrado";
+         }
+    }
+
 }
 
-export const users = new UserService()
+export const userService = new UserService()

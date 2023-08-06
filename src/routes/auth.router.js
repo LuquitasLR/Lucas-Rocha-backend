@@ -16,7 +16,7 @@ authRouter.post('/register', passport.authenticate('register', { failureRedirect
   if (!req.user) {
     return res.render('error-page',{error:'Faltan datos'});
     }
-  req.session.user = { _id: req.user._id, mail: req.user.mail, name: req.user.firstName, lastName: req.user.lastName, isAdmin: req.user.isAdmin };
+  req.session.user = { _id: req.user._id, mail: req.user.mail, name: req.user.firstName, lastName: req.user.lastName, cart:req.user.cart, role: req.user.role };
 
   return res.redirect("../products");
 });
@@ -33,8 +33,7 @@ authRouter.post('/login', passport.authenticate('login', { failureRedirect: '/au
   if (!req.user) {
     return res.render('error-page',{error:'Credenciales invalidas'});
   }
-  req.session.user = { _id: req.user._id, mail: req.user.mail, firstName: req.user.firstName, lastName: req.user.lastName, role: req.user.role };
-  console.log(req.session.user)
+  req.session.user = { _id: req.user._id, mail: req.user.mail, firstName: req.user.firstName, lastName: req.user.lastName, cart:req.user.cart, role: req.user.role };
 
   return res.redirect("../products",);
 });
@@ -53,11 +52,11 @@ authRouter.get('/logout', (req, res) => {
   });
 });
 
-authRouter.get('/perfil', isUser, (req, res) => {
+authRouter.get('/profile', isUser, (req, res) => {
   const user = req.session.user;
   return res.render('profile', { user: user });
 });
 
-authRouter.get('/administracion', isUser, isAdmin, (req, res) => {
+authRouter.get('/admin', isAdmin, (req, res) => {
   return res.send('datos super secretos');
 });

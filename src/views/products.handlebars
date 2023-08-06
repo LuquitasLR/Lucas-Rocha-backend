@@ -12,7 +12,7 @@
         <h4>ID:</h4> <p>{{this._id}}</p>
         <h4>Descripción:</h4><p>{{this.description}}</p>
         <h3>Precio: ${{this.price}}</h3>
-        <a href="javascript:addProduct({{cart.id}},{{this._id}})"><button>Agregar al carrito</button></a>
+        <a><button id="">Agregar al carrito</button></a>
     </li>
     <hr/>
     {{/each}}
@@ -31,4 +31,3 @@
   {{/if}}
 </p>
 </div>
-<script src="src/services/cartService.js" ></script>

@@ -1,5 +1,4 @@
 import Express from "express";
-//import { users } from "../services/userService.js";
 import { isUser } from "../middlewares/auth.js";
 import { isAdmin } from "../middlewares/auth.js";
 

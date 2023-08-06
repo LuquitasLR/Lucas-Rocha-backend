@@ -1,4 +1,4 @@
-import {cartMongoose} from '../mongoose/cart.mongoose.js'
+import {cartMongoose} from '../../mongoose/cart.mongoose.js'
 
 class CartModel {
 
