@@ -1,4 +1,4 @@
-import { MsgModel } from '../DAO/mongoose/msgs.mongoose.js'
+import { MsgModel } from '../DAO/mongoose/msg.mongoose.js'
 import { productService } from "../services/productService.js";
 import { Server } from 'socket.io';
 

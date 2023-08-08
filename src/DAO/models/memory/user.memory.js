@@ -50,6 +50,10 @@ class userManager {
         return  this.users.find((u) => u._id ==_id)
     }
 
+    findByCart (cart){
+        return  this.users.find((u) => u.cart ==cart)
+    }
+    
 }
 
 export const userModel = new userManager('./src/users.json')

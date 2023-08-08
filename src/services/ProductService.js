@@ -1,4 +1,4 @@
-import { productModel } from '../DAO/models/mongo/products.mongo.js'
+import { productModel } from '../DAO/models/mongo/product.mongo.js'
 //import {productModel} from '../DAO/models/memory/product.memory.js'
 
 class ProductService {
@@ -88,6 +88,14 @@ class ProductService {
     async getPaginatedProducts (query,options){
         return await productModel.paginatedProducts(query,options)
     }
+
+    // async reduceStock(cart) {
+        
+    //     await cart.forEach(cart => {
+            
+    //     });
+    // }
 }
+
 
 export const productService = new ProductService()

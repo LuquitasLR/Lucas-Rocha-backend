@@ -1,4 +1,4 @@
-import {productMongoose} from '../../mongoose/products.mongoose.js'
+import {productMongoose} from '../../mongoose/product.mongoose.js'
 
 class ProductModel {
 

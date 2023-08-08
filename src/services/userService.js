@@ -1,5 +1,5 @@
-import { userModel } from "../DAO/models/mongo/users.mongo.js";
-//import {userModel} from '../DAO/models/memory/users.memory.js'
+import { userModel } from "../DAO/models/mongo/user.mongo.js";
+//import {userModel} from '../DAO/models/memory/user.memory.js'
 
 class UserService {
 
@@ -25,6 +25,15 @@ class UserService {
     async findById (_id) {
         try{
             return await userModel.findById(_id)
+ 
+         }
+         catch{
+             throw "usuario no encontrado";
+         }
+    }
+    async findByCart (cart) {
+        try{
+            return await userModel.findByCart(cart)
  
          }
          catch{

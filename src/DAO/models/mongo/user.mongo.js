@@ -1,4 +1,4 @@
-import {userMongoose} from '../../mongoose/users.mongoose.js'
+import {userMongoose} from '../../mongoose/user.mongoose.js'
 
 class UserModel {
 
@@ -8,6 +8,9 @@ class UserModel {
 
     async getUser (mail){
         return await userMongoose.findOne({mail:mail})
+    }
+    async findByCart (cart){
+        return await userMongoose.findOne({cart:cart.toString()})
     }
 
     async findById (_id){
