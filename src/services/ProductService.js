@@ -1,5 +1,7 @@
 //import { productModel } from '../DAO/models/mongo/product.mongo.js'
 import {productModel} from '../DAO/models/memory/product.memory.js'
+import CustomError from '../utils/custom-error.js';
+import { createProductErrorInfo } from '../utils/info.js';
 
 class ProductService {
 
@@ -13,7 +15,13 @@ class ProductService {
         const { title, description, category, status, price, thumbnail, code, stock } = body;
         if (!title || !description || !category || !price || !thumbnail || !status || !code || !stock) {
             
-            return({msj:"all fields are required."});
+            CustomError.createError({
+                name: "Product creation error",
+                cause: createProductErrorInfo(body),
+                message: "Error trying to create a new product",
+                code: EErros.INVALID_TYPES_ERROR,
+            });
+              
             
         }
         
