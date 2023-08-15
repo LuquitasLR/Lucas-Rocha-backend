@@ -1,4 +1,5 @@
 import fs from 'fs'
+import { generateID } from '../../../utils/utils.js'
 
  class productManager {
 
@@ -12,17 +13,10 @@ import fs from 'fs'
     }
 
     create (product) {
-        let idMax= 0
-        this.products.forEach((prod) => {
-            if (prod._id >idMax) 
-            idMax = prod._id
-        })
-
-        idMax++
             
         const newProduct = {
 
-            _id: idMax,
+            _id: generateID(),
             title: product.title,
             description: product.description,
             code: product.code,

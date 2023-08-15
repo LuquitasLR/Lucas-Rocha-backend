@@ -1,4 +1,5 @@
 import {productService} from '../../services/productService.js'
+import { generateProduct } from '../../utils/utils.js';
 
 class ProductController {
 
@@ -17,45 +18,58 @@ class ProductController {
         }
       }
 
-      getPaginatedProductsApi = async (req, res) => {
-        try{
-          const queryLimit = parseInt(req.query.limit) || 10;
-          const queryPage = parseInt(req.query.page) || 1
-          let query
-          let categoryToLink 
-          //CONSIDERE QUE EL STATUS ES LA DISPONIBILIDAD Y LOS VALORES PUEDEN SER TRUE O FALSE
-          let status = req.query.status || true
-          if(!req.query.category) {query = {status}, categoryToLink=""}else{query = {category: req.query.category,status}, categoryToLink=req.query.category}
+      // getPaginatedProductsApi = async (req, res) => {
+      //   try{
+      //     const queryLimit = parseInt(req.query.limit) || 10;
+      //     const queryPage = parseInt(req.query.page) || 1
+      //     let query
+      //     let categoryToLink 
+      //     //CONSIDERE QUE EL STATUS ES LA DISPONIBILIDAD Y LOS VALORES PUEDEN SER TRUE O FALSE
+      //     let status = req.query.status || true
+      //     if(!req.query.category) {query = {status}, categoryToLink=""}else{query = {category: req.query.category,status}, categoryToLink=req.query.category}
       
-          let querySort = req.query.sort || {}
-          let sortToLink = req.query.sort || ""
-          if(req.query.sort=="asc") {querySort = {price:1}} 
-          if(req.query.sort=="desc"){querySort = {price:-1}}
+      //     let querySort = req.query.sort || {}
+      //     let sortToLink = req.query.sort || ""
+      //     if(req.query.sort=="asc") {querySort = {price:1}} 
+      //     if(req.query.sort=="desc"){querySort = {price:-1}}
           
-          const queryResult = await productService.getPaginatedProducts(query,{sort:querySort,limit:queryLimit,page:queryPage})
-          const docs= queryResult.docs
-          let { totalDocs, limit, totalPages, page, pagingCounter, hasPrevPage, hasNextPage, prevPage, nextPage } = queryResult;
+      //     const queryResult = await productService.getPaginatedProducts(query,{sort:querySort,limit:queryLimit,page:queryPage})
+      //     const docs= queryResult.docs
+      //     let { totalDocs, limit, totalPages, page, pagingCounter, hasPrevPage, hasNextPage, prevPage, nextPage } = queryResult;
       
-          //CREAMOS LOS LINKS PARA LAS PAGINAS SIGUIENTES Y ANTERIOR, QUERY Y SORT HAY QUE MODIFICARLOS PARA PODER GENERAR EL LINK CORRECTAMENTE.
-          if(prevPage){prevPage= `localhost:8080/api/products/?category=${categoryToLink}&limit=${queryLimit}&page=${prevPage}&sort=${sortToLink}&status=${status}`}
-          if(nextPage){nextPage= `localhost:8080/api/products/?category=${categoryToLink}&limit=${queryLimit}&page=${nextPage}&sort=${sortToLink}&status=${status}`}
-          return res
-            .status(200)
-            .json({ 
-              status: "success", 
-              payload:docs, 
-              data: {totalDocs, limit, totalPages, page, pagingCounter, hasPrevPage, hasNextPage, prevPage, nextPage 
-            }});   
-        }
+      //     //CREAMOS LOS LINKS PARA LAS PAGINAS SIGUIENTES Y ANTERIOR, QUERY Y SORT HAY QUE MODIFICARLOS PARA PODER GENERAR EL LINK CORRECTAMENTE.
+      //     if(prevPage){prevPage= `localhost:8080/api/products/?category=${categoryToLink}&limit=${queryLimit}&page=${prevPage}&sort=${sortToLink}&status=${status}`}
+      //     if(nextPage){nextPage= `localhost:8080/api/products/?category=${categoryToLink}&limit=${queryLimit}&page=${nextPage}&sort=${sortToLink}&status=${status}`}
+      //     return res
+      //       .status(200)
+      //       .json({ 
+      //         status: "success", 
+      //         payload:docs, 
+      //         data: {totalDocs, limit, totalPages, page, pagingCounter, hasPrevPage, hasNextPage, prevPage, nextPage 
+      //       }});   
+      //   }
         
+      //   catch{
+      //     return res
+      //       .status(500)
+      //       .json({ status: "error", msg: "algo salió mal" });   
+      //   }
+      
+        
+      // }
+
+      getProductsApi = async (req, res) => {
+        try{
+          const products= await productService.getAll()
+          return res
+          .status(200)
+          .json({ status: "success", data: products });
+        }
         catch{
-          return res
-            .status(500)
-            .json({ status: "error", msg: "algo salió mal" });   
-        }
-      
+          return res.render('error-page',{error:'Error al cargar los productos'});
         
-      }
+      }}
+      
 
       getPaginatedProductsRender = async (req,res) => {
         try{
@@ -127,7 +141,24 @@ class ProductController {
           .json({ status: "error", msg: "algo salió mal" });  
         }
       
-    }    
+    } 
+    
+    addFakerProducts = async (req,res)=>{
+    try{
+      for (let i = 0; i < 100; i++) {
+         await productService.addProduct(generateProduct());
+      }
+      const products= await productService.getAll()
+          return res
+          .status(200)
+          .json({ status: "success", data: products });
+    }
+    catch{
+      return res
+      .status(500)
+      .json({ status: "error", msg: "algo salió mal" }); 
+    }}
+    
 }
 
 

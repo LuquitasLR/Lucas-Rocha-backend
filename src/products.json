@@ -1,5 +1,1 @@
-[{"id":1,"title":"intel core i5","description":"procesador gama media","code":"lasd1235","price":35900,"thumbnail":"none","stock":10,"category":"procesadores"},
-{"id":2,"title":"intel core i7","description":"procesador gama alta","code":"xnfk3455","price":45500,"thumbnail":"none","stock":10,"category":"procesadores"},
-{"id":3,"title":"intel core i3","description":"procesador gama baja","code":"ksgd8352","price":25750,"thumbnail":"none","stock":15,"category":"procesadores"},
-{"id":4,"title":"ryzen 5 3500","description":"procesador gama media","code":"iwbh2085","price":39800,"thumbnail":"none","stock":20,"category":"procesadores"},
-{"id":5,"title":"ryzen 7 5700g","description":"procesador gama alta","code":"oxdj8343","price":47900,"thumbnail":"none","stock":30,"category":"procesadores"}]
+[]
