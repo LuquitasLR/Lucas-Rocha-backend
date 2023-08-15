@@ -17,6 +17,7 @@ import { testChatRouter } from './routes/test-chat.router.js';
 import { connectMongo } from './utils/dbconection.js';
 import { socketServerConection } from './utils/socketServer.js';
 import env from './config/enviroment.config.js'
+import errorHandler from './middlewares/error.js'
 
 console.log(env)
 const app = express()
@@ -70,6 +71,7 @@ app.use("/realtimeproducts", realTimeProductsRouter)
 app.use("/test-chat", testChatRouter)
 app.use("/sessions",sessionsViewsRouter)
 app.use("/auth",authRouter)
+app.use(errorHandler)
 
 //ENDPOINT INDEX
 app.get('/', (req,res)=>{

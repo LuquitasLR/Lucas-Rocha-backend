@@ -22,6 +22,5 @@ export const generateProduct = () => {
     stock: faker.number.int(40),
     category: faker.commerce.department()
   }
-  return body
-  ;
+  return body;
 };
