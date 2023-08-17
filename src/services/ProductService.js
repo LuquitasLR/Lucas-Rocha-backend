@@ -2,6 +2,7 @@
 import {productModel} from '../DAO/models/memory/product.memory.js'
 import CustomError from '../utils/custom-error.js';
 import { createProductErrorInfo } from '../utils/info.js';
+import EErros from '../utils/enums.js';
 
 class ProductService {
 
@@ -14,8 +15,7 @@ class ProductService {
 
         const { title, description, category, status, price, thumbnail, code, stock } = body;
         if (!title || !description || !category || !price || !thumbnail || !status || !code || !stock) {
-            
-            CustomError.createError({
+              return CustomError.createError({
                 name: "Product creation error",
                 cause: createProductErrorInfo(body),
                 message: "Error trying to create a new product",
@@ -24,8 +24,7 @@ class ProductService {
               
             
         }
-        
-        const product = {
+            const product = {
             
             title: title,
             description: description,
@@ -41,7 +40,8 @@ class ProductService {
         return await productModel.create(product)
         
 
-    }
+        
+    };
 
     async getAll (){ 
         return await productModel.getAll()

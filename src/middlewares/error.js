@@ -10,7 +10,7 @@ export default (error, req, res, next) => {
         .send({ status: "error", error: error.name, cause: error.cause });
       break;
     default:
-      res.send({ status: "error", error: "Unhandled error" });
+      res.status(400).send({ status: "error", error: "Unhandled error" });
       break;
   }
 };

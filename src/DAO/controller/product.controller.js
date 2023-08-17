@@ -114,18 +114,21 @@ class ProductController {
       }
 
     addProduct = async(req, res) => {
-        try{
+        
           const body = req.body;
+        //   const { title, description, category, status, price, thumbnail, code, stock } = body;
+        // if (!title || !description || !category || !price || !thumbnail || !status || !code || !stock) {
+        //       return CustomError.createError({
+        //         name: "Product creation error",
+        //         cause: createProductErrorInfo(body),
+        //         message: "Error trying to create a new product",
+        //         code: EErros.INVALID_TYPES_ERROR,
+        //     })};
           let added = await productService.addProduct(body)
           return res
             .status(200)
-            .json({status: "success", msg: added });
-        }
-        catch{
-          return res
-            .status(500)
-            .json({ status: "error", msg: "algo salió mal" });  
-        }
+            .json({status: "success", msg: added }); 
+        
     }
 
     updateProduct = async(req, res) => {

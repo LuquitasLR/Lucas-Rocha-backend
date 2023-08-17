@@ -1,7 +1,5 @@
 import { faker } from "@faker-js/faker";
 
-export const uploader = multer({ storage });
-
 export const generateID =()=>{
   const a =Date.now().toString(30)
   const b =Math.random().toString(30).substring(2)
