@@ -1,5 +1,5 @@
 import MongoStore from 'connect-mongo';
-import { logger } from './utils/logger.development.js';
+import { logger } from './utils/logger.production.js';
 import express from 'express';
 import handlebars from "express-handlebars";
 import session from 'express-session';

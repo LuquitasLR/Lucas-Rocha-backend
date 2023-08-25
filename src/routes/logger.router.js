@@ -1,6 +1,6 @@
 import express from "express";
 export const loggerRouter = express.Router();
-import { logger } from "../utils/logger.development.js";
+import { logger } from "../utils/logger.production.js";
 
 loggerRouter.get("/",(req, res) =>{
     logger.debug("debug!")
@@ -8,4 +8,5 @@ loggerRouter.get("/",(req, res) =>{
     logger.info("info!")
     logger.warn("alerta!")
     logger.error("error!!!")
+    res.send("probando logger!")
 } );
