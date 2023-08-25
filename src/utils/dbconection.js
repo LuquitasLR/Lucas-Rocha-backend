@@ -1,11 +1,12 @@
 import { connect } from "mongoose";
 import env from '../config/enviroment.config.js'
+import { logger } from "./logger.development.js";
 export async function connectMongo() {
   try {
     await connect(env.persistence);
-    console.log("plug to mongo!");
+    logger.info("plug to mongo!");
   } catch (e) {
-    console.log(e);
+    logger.error(e);
     throw "can not connect to the db";
   }
 }

@@ -11,7 +11,6 @@ export function socketServerConection (httpServer){
     console.log (socket.id, "socket conectado")
     
     socket.on("deleteProduct",async(_id) => {
-      console.log (_id)
        await productService.deleteProduct(_id)
        emitProductsList()
     })

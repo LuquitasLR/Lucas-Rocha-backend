@@ -1,4 +1,5 @@
 import passport from 'passport';
+import { logger } from '../utils/logger.development.js';
 import {userService} from '../services/userService.js'
 import {cartService} from '../services/cartService.js'
 import fetch from 'node-fetch';
@@ -18,7 +19,6 @@ export function iniPassport() {
         callbackURL: 'http://localhost:8080/api/sessions/githubcallback',
       },
       async (accesToken, _, profile, done) => {
-        console.log(profile);
         try {
           const res = await fetch('https://api.github.com/user/emails', {
             headers: {
@@ -48,15 +48,15 @@ export function iniPassport() {
               role: 'user',
             };
             const userCreated = await userService.newUser(newUser);
-            console.log('User Registration succesful');
+            logger.verbose('User Registration succesful');
             return done(null, userCreated);
           } else {
-            console.log('User already exists');
+            logger.verbose('User already exists');
             return done(null, user);
           }
         } catch (e) {
-          console.log('Error en auth github');
-          console.log(e);
+          logger.error('Error en auth github');
+          logger.error(e);
           return done(e);
         }
       }
@@ -69,11 +69,11 @@ export function iniPassport() {
       try {
         const user = await userService.getUser(username);
         if (!user) {
-          console.log('User Not Found with username (mail) ' + username);
+          logger.info('User Not Found with username (mail) ' + username);
           return done(null, false);
         }
         if (!isValidPassword(password, user.password)) {
-          console.log('Invalid Password');
+          logger.info('Invalid Password');
           return done(null, false);
         }
 
@@ -96,7 +96,7 @@ export function iniPassport() {
           const { mail, firstName, age, lastName } = req.body;
           const user = await userService.getUser(username);
           if (user) {
-            console.log('User already exists');
+            logger.verbose('User already exists');
             return done(null, false);
           }
           else{
@@ -111,13 +111,12 @@ export function iniPassport() {
             role: 'user',
             };
             let userCreated = await userService.newUser(newUser);
-            console.log(userCreated);
-            console.log('User Registration succesful');
+            logger.verbose('User Registration succesful');
             return done(null, userCreated);
         }
         } catch (e) {
-          console.log('Error in register');
-          console.log(e);
+          logger.error('Error in register');
+          logger.error(e);
           return done(e);
         }
       }

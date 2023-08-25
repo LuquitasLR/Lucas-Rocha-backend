@@ -1,5 +1,6 @@
 import fs from 'fs'
 import { generateID } from '../../../utils/utils.js'
+import { logger } from '../../../utils/logger.development.js'
 
  class productManager {
 
@@ -61,7 +62,7 @@ import { generateID } from '../../../utils/utils.js'
             fs.writeFileSync(this.path, productString)
 
         }else {
-            console.log("Not Found")
+            logger.info("Not Found")
         }
 
 

@@ -38,7 +38,6 @@ class TicketService {
             products: checkedCart
         }
         const newTicket = await ticketModel.create(ticket);
-        // console.log(ticket)
 
         let result = `El siguiente ticket fue creado exitosamente: ${newTicket}.`;
         if(noStock.length>0){result=`El siguiente ticket fue creado exitosamente: ${newTicket}. Los siguientes productos no contaban con stock suficiente: ${noStock}.`}

@@ -1,4 +1,5 @@
 const socket = io();
+import { logger } from "../../src/utils/logger.development.js";
 const formProducts = document.getElementById("form-product")
 const formTitle = document.getElementById("form-title");
 const formDescription = document.getElementById("form-description");
@@ -28,11 +29,11 @@ formProducts.addEventListener("submit", (e)=> {
 });   
 
 socket.on("conectado", (msj) => {
-    console.log(JSON.stringify(msj));
+    logger.verbose(JSON.stringify(msj));
 })
 socket.emit("test",{msj:"probando la conexion"})
 
-socket.on("products",(pl) =>{console.log(pl)})
+socket.on("products",(pl) =>{logger.verbose(pl)})
 
 socket.on("updatedProducts",(prod)=>{
     const productList= document.getElementById("product-list")
@@ -44,7 +45,6 @@ socket.on("updatedProducts",(prod)=>{
             price: product.price
         }
     })
-    //console.log(prod)
     productList.innerHTML= "";
     prod.forEach((product)=> {
         let listItem = document.createElement("li");

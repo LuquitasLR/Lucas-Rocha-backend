@@ -1,4 +1,5 @@
 import MongoStore from 'connect-mongo';
+import { logger } from './utils/logger.development.js';
 import express from 'express';
 import handlebars from "express-handlebars";
 import session from 'express-session';
@@ -18,18 +19,20 @@ import { connectMongo } from './utils/dbconection.js';
 import { socketServerConection } from './utils/socketServer.js';
 import env from './config/enviroment.config.js'
 import errorHandler from './middlewares/error.js'
+import { addLogger } from './utils/logger.development.js';
 
-console.log(env)
+logger.info(env)
 const app = express()
 const port = 8080
 
 export const httpServer = app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`)
+  logger.info(`Example app listening on port ${port}`)
 })
 
 socketServerConection(httpServer)
 connectMongo()
 
+app.use(addLogger)
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static('public'));
