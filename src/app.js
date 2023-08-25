@@ -20,6 +20,7 @@ import { socketServerConection } from './utils/socketServer.js';
 import env from './config/enviroment.config.js'
 import errorHandler from './middlewares/error.js'
 import { addLogger } from './utils/logger.development.js';
+import {loggerRouter} from './routes/logger.router.js'
 
 logger.info(env)
 const app = express()
@@ -66,6 +67,7 @@ app.use(express.static(path.join(__dirname, "/public")));
 app.use("/api/products" ,productsRouter)
 app.use("/api/carts" ,cartsRouter)
 app.use("/api/sessions",sessionsRouter)
+app.use("/loggerTest",loggerRouter)
 
 
 //ENDPOINTS CON VISTAS DE HANDLEBARS
