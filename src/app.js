@@ -1,5 +1,5 @@
 import MongoStore from 'connect-mongo';
-import { logger } from './utils/logger.production.js';
+import { logger } from './DAO/factory.js';
 import express from 'express';
 import handlebars from "express-handlebars";
 import session from 'express-session';
@@ -15,28 +15,28 @@ import { realTimeProductsRouter } from './routes/real-time-products.handlebars.r
 import { sessionsRouter } from './routes/sessions.router.js';
 import { sessionsViewsRouter } from './routes/sessions.views.router.js';
 import { testChatRouter } from './routes/test-chat.router.js';
-import { connectMongo } from './utils/dbconection.js';
+//import { connectMongo } from './utils/dbconection.js';
 import { socketServerConection } from './utils/socketServer.js';
 import env from './config/enviroment.config.js'
-import errorHandler from './middlewares/error.js'
-import { addLogger } from './utils/logger.development.js';
+//import errorHandler from './middlewares/error.js'
+import { addLogger } from './utils/logger.js';
 import {loggerRouter} from './routes/logger.router.js'
 
 logger.info(env)
 const app = express()
-const port = 8080
+const port = env.port
 
 export const httpServer = app.listen(port, () => {
   logger.info(`Example app listening on port ${port}`)
 })
 
 socketServerConection(httpServer)
-connectMongo()
 
 app.use(addLogger)
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static('public'));
+
 app.use(session({
   secret:'secretCoder',
   resave:true,
@@ -76,7 +76,7 @@ app.use("/realtimeproducts", realTimeProductsRouter)
 app.use("/test-chat", testChatRouter)
 app.use("/sessions",sessionsViewsRouter)
 app.use("/auth",authRouter)
-app.use(errorHandler)
+//app.use(errorHandler)
 
 //ENDPOINT INDEX
 app.get('/', (req,res)=>{

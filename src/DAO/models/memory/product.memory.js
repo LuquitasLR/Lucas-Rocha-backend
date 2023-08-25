@@ -1,6 +1,6 @@
 import fs from 'fs'
 import { generateID } from '../../../utils/utils.js'
-import { logger } from '../../../utils/logger.development.js'
+import { logger } from '../../factory.js'
 
  class productManager {
 

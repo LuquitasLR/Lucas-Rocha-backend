@@ -1,5 +1,6 @@
 //import { ticketModel } from "../DAO/models/mongo/ticket.mongo.js";
-import { ticketModel } from "../DAO/models/memory/ticket.memory.js";
+//import { ticketModel } from "../DAO/models/memory/ticket.memory.js";
+import { ticketModel } from '../DAO/factory.js';
 import { productService } from "./productService.js";
 import { generateID } from "../utils/utils.js";
 import { userService } from "./userService.js";

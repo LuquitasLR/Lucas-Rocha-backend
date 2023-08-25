@@ -1,5 +1,5 @@
 import EErros from "../utils/enums.js";
-import { logger } from "../utils/logger.development.js";
+import { logger } from "../DAO/factory.js";
 
 export default (error, req, res, next) => {
   logger.error(error.cause);

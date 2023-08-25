@@ -1,5 +1,5 @@
+import { logger } from "../../src/DAO/factory.js";
 const socket = io();
-import { logger } from "../../src/utils/logger.development.js";
 const formProducts = document.getElementById("form-product")
 const formTitle = document.getElementById("form-title");
 const formDescription = document.getElementById("form-description");

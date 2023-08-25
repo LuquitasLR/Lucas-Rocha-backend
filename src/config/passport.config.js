@@ -1,5 +1,5 @@
 import passport from 'passport';
-import { logger } from '../utils/logger.development.js';
+import { logger } from '../DAO/factory.js';
 import {userService} from '../services/userService.js'
 import {cartService} from '../services/cartService.js'
 import fetch from 'node-fetch';

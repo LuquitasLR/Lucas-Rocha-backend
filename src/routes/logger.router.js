@@ -1,6 +1,6 @@
 import express from "express";
 export const loggerRouter = express.Router();
-import { logger } from "../utils/logger.production.js";
+import { logger } from "../DAO/factory.js"; 
 
 loggerRouter.get("/",(req, res) =>{
     logger.debug("debug!")
