@@ -13,13 +13,13 @@ switch (config.persistence) {
   case 'MEMORY':
     logger = devLogger
     logger.info('persistence in memory');
-    const { productMemory } = import ('./models/memory/product.memory.js');
+    const { productMemory } = await import ('./models/memory/product.memory.js');
     productModel = productMemory;
-    const { ticketMemory } = import('./models/memory/ticket.memory.js');
+    const { ticketMemory } = await import('./models/memory/ticket.memory.js');
     ticketModel = ticketMemory;
-    const { userMemory } = import('./models/memory/user.memory.js');
+    const { userMemory } = await import('./models/memory/user.memory.js');
     userModel = userMemory;
-    const { cartMemory } = import('./models/memory/cart.memory.js');
+    const { cartMemory } = await import('./models/memory/cart.memory.js');
     cartModel = cartMemory;
 
     break;

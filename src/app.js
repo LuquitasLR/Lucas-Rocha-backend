@@ -17,7 +17,7 @@ import { sessionsViewsRouter } from './routes/sessions.views.router.js';
 import { testChatRouter } from './routes/test-chat.router.js';
 import { socketServerConection } from './utils/socketServer.js';
 import env from './config/enviroment.config.js'
-//import errorHandler from './middlewares/error.js'
+import errorHandler from './middlewares/error.js'
 import { addLogger } from './utils/logger.js';
 import {loggerRouter} from './routes/logger.router.js'
 
@@ -44,13 +44,14 @@ app.use(session({
    store: MongoStore.create({
     mongoUrl:env.persistence,
     mongoOptions:{useNewUrlParser:true,useUnifiedTopology:true},
-    ttl:5000
+    ttl:2500
   })
 })):
 app.use(session({
   secret:'secretCoder',
   resave:true,
-  saveUninitialized:true
+  saveUninitialized:true,
+  maxAge: 1000*60*15,
 }));
 
 iniPassport();
@@ -81,7 +82,7 @@ app.use("/realtimeproducts", realTimeProductsRouter)
 app.use("/test-chat", testChatRouter)
 app.use("/sessions",sessionsViewsRouter)
 app.use("/auth",authRouter)
-//app.use(errorHandler)
+app.use(errorHandler)
 
 //ENDPOINT INDEX
 app.get('/', (req,res)=>{

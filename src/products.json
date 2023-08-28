@@ -1,12 +1,1 @@
-[{
-    "_id": "648ce3f7c319b7c2746f59c2",
-    "title": "intel core i5",
-    "description": "procesador gama media",
-    "code": "lasd1235",
-    "price": 35900,
-    "status": "true",
-    "thumbnail": "none",
-    "stock": 10,
-    "category": "procesadores",
-    "__v": 0
-}]
+[{"_id":"2hclmkts9q06j8c3rglr","title":"Refined Granite Car","description":"The automobile layout consists of a front-engine design, with transaxle-type transmissions mounted at the rear of the engine and four wheel drive","code":"8fg7b7qh9e2","price":"871.00","status":true,"thumbnail":"https://picsum.photos/seed/TKjdo/640/480","stock":23,"category":"Computers"},{"_id":"2hclmktsb4pl21mrhhj8c","title":"Handcrafted Granite Shoes","description":"Carbonite web goalkeeper gloves are ergonomically designed to give easy fit","code":"64skh39h9r7","price":"670.00","status":true,"thumbnail":"https://picsum.photos/seed/V6NExth0G/640/480","stock":8,"category":"Toys"},{"_id":"2hclmktsc3g086r5i7g5","title":"Refined Cotton Pizza","description":"The automobile layout consists of a front-engine design, with transaxle-type transmissions mounted at the rear of the engine and four wheel drive","code":"qa2rqsb82eb","price":"49.00","status":true,"thumbnail":"https://picsum.photos/seed/iF4JO/640/480","stock":21,"category":"Baby"},{"_id":"2hclmt1nn9k918130q1d","title":"Sleek Plastic Table","description":"The slim & simple Maple Gaming Keyboard from Dev Byte comes with a sleek body and 7- Color RGB LED Back-lighting for smart functionality","code":"ggkdm0tk6ke","price":"11.00","status":true,"thumbnail":"https://picsum.photos/seed/COobGSEn/640/480","stock":7,"category":"Beauty"}]

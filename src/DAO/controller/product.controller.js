@@ -150,11 +150,11 @@ class ProductController {
     try{
       for (let i = 0; i < 100; i++) {
          await productService.addProduct(generateProduct());
+         console.log(i)
       }
-      const products= await productService.getAll()
-          return res
-          .status(200)
-          .json({ status: "success", data: products });
+      return res
+      .status(200)
+      .json({ status: "success", msj: "productos agregados exitosamente" });
     }
     catch{
       return res
