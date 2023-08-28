@@ -56,4 +56,4 @@ class userManager {
     
 }
 
-export const userModel = new userManager('./src/users.json')
+export const userMemory = new userManager('./src/users.json')

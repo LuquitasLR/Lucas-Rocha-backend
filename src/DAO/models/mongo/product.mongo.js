@@ -29,4 +29,4 @@ class ProductModel {
     }
 }
 
-export const productModel = new ProductModel()
+export const productMongo = new ProductModel()

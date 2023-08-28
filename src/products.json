@@ -1,1 +1,12 @@
-[]
+[{
+    "_id": "648ce3f7c319b7c2746f59c2",
+    "title": "intel core i5",
+    "description": "procesador gama media",
+    "code": "lasd1235",
+    "price": 35900,
+    "status": "true",
+    "thumbnail": "none",
+    "stock": 10,
+    "category": "procesadores",
+    "__v": 0
+}]

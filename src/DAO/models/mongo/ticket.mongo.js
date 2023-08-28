@@ -12,4 +12,4 @@ class TicketModel {
 
 }
 
-export const ticketModel = new TicketModel()
+export const ticketMongo = new TicketModel()

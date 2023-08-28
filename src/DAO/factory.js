@@ -8,17 +8,19 @@ export let userModel;
 export let cartModel;
 export let logger
 
-switch (config.persistence) {
+switch (config.port) {
 
-  case 'MEMORY':
+  case '3030':
     logger = devLogger
-    const { default: productMemory } = await import('./models/memory/product.memory.js');
+    logger.info('persistence in memory');
+    mongoose.connect(config.persistence);
+    const { productMemory } = import ('./models/memory/product.memory.js');
     productModel = productMemory;
-    const { default: ticketMemory } = await import('./models/memory/ticket.memory.js');
+    const { ticketMemory } = import('./models/memory/ticket.memory.js');
     ticketModel = ticketMemory;
-    const { default: userMemory } = await import('./models/memory/user.memory.js');
+    const { userMemory } = import('./models/memory/user.memory.js');
     userModel = userMemory;
-    const { default: cartMemory } = await import('./models/memory/cart.memory.js');
+    const { cartMemory } = import('./models/memory/cart.memory.js');
     cartModel = cartMemory;
 
     break;
@@ -28,13 +30,13 @@ switch (config.persistence) {
     logger.info('Mongo connect');
     mongoose.connect(config.persistence);
 
-    const { default: productMongo } = await import('./models/mongo/product.mongo.js');
+    const { productMongo } = await import('./models/mongo/product.mongo.js');
     productModel = productMongo;
-    const { default: ticketMongo } = await import('./models/mongo/ticket.mongo.js');
+    const { ticketMongo } = await import('./models/mongo/ticket.mongo.js');
     ticketModel = ticketMongo;
-    const { default: userMongo } = await import('./models/mongo/user.mongo.js');
+    const { userMongo } = await import('./models/mongo/user.mongo.js');
     userModel = userMongo;
-    const { default: cartMongo } = await import('./models/mongo/cart.mongo.js');
+    const { cartMongo } = await import('./models/mongo/cart.mongo.js');
     cartModel = cartMongo;
 
     break;

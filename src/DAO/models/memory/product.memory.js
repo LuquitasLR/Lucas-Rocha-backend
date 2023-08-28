@@ -1,6 +1,6 @@
 import fs from 'fs'
 import { generateID } from '../../../utils/utils.js'
-import { logger } from '../../factory.js'
+//import { logger } from '../../factory.js'
 
  class productManager {
 
@@ -86,4 +86,4 @@ import { logger } from '../../factory.js'
 
 }
 
-export const productModel = new productManager('./src/products.json')
+export const productMemory = new productManager('./src/products.json')

@@ -81,4 +81,4 @@ class cartManager {
 
 }
 
-export const cartModel = new cartManager('./src/carts.json')
+export const cartMemory = new cartManager('./src/carts.json')

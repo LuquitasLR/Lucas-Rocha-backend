@@ -20,4 +20,4 @@ class CartModel {
     }
 }
 
-export const cartModel = new CartModel()
+export const cartMongo = new CartModel()

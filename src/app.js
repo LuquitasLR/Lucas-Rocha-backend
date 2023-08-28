@@ -15,7 +15,6 @@ import { realTimeProductsRouter } from './routes/real-time-products.handlebars.r
 import { sessionsRouter } from './routes/sessions.router.js';
 import { sessionsViewsRouter } from './routes/sessions.views.router.js';
 import { testChatRouter } from './routes/test-chat.router.js';
-//import { connectMongo } from './utils/dbconection.js';
 import { socketServerConection } from './utils/socketServer.js';
 import env from './config/enviroment.config.js'
 //import errorHandler from './middlewares/error.js'

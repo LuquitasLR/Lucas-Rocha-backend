@@ -47,4 +47,4 @@ class TicketModel {
 
 }
 
-export const ticketModel = new TicketModel('./src/tickets.json')
+export const ticketMemory = new TicketModel('./src/tickets.json')
