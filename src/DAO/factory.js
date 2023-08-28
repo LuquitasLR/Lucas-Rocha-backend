@@ -8,12 +8,11 @@ export let userModel;
 export let cartModel;
 export let logger
 
-switch (config.port) {
+switch (config.persistence) {
 
-  case '3030':
+  case 'MEMORY':
     logger = devLogger
     logger.info('persistence in memory');
-    mongoose.connect(config.persistence);
     const { productMemory } = import ('./models/memory/product.memory.js');
     productModel = productMemory;
     const { ticketMemory } = import('./models/memory/ticket.memory.js');

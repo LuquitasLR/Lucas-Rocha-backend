@@ -36,16 +36,22 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static('public'));
 
+env.persistence!="MEMORY"?
 app.use(session({
   secret:'secretCoder',
   resave:true,
   saveUninitialized:true,
-  store: MongoStore.create({
+   store: MongoStore.create({
     mongoUrl:env.persistence,
     mongoOptions:{useNewUrlParser:true,useUnifiedTopology:true},
     ttl:5000
   })
-}))
+})):
+app.use(session({
+  secret:'secretCoder',
+  resave:true,
+  saveUninitialized:true
+}));
 
 iniPassport();
 app.use(passport.initialize());
