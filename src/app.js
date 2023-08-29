@@ -49,10 +49,10 @@ app.use(session({
 })):
 app.use(session({
   secret:'secretCoder',
-  resave:false,
+  resave:true,
   saveUninitialized:true,
   cookie: {
-    maxAge: 600000, 
+    maxAge: 1000*60*5, 
   }
 }));
 

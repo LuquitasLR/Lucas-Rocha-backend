@@ -150,7 +150,6 @@ class ProductController {
     try{
       for (let i = 0; i < 50; i++) {
          await productService.addProduct(generateProduct());
-         console.log(i)
       }
       return res
       .status(200)
