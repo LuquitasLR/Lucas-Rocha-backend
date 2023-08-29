@@ -49,9 +49,11 @@ app.use(session({
 })):
 app.use(session({
   secret:'secretCoder',
-  resave:true,
+  resave:false,
   saveUninitialized:true,
-  maxAge: 1000*60*15,
+  cookie: {
+    maxAge: 600000, 
+  }
 }));
 
 iniPassport();

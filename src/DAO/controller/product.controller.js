@@ -135,7 +135,7 @@ class ProductController {
         try{
           const _id = req.params.pid;
           const body = req.body;
-          const mProduct = await productService.updateProduct(_id, body)
+          const mProduct = await productService.updateProduct(_id, body);
           return res.status(200)
           .json({status: "success", msg: "producto modificado", data: mProduct });}
         catch{
@@ -148,7 +148,7 @@ class ProductController {
     
     addFakerProducts = async (req,res)=>{
     try{
-      for (let i = 0; i < 100; i++) {
+      for (let i = 0; i < 50; i++) {
          await productService.addProduct(generateProduct());
          console.log(i)
       }

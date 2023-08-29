@@ -4,13 +4,13 @@ export const generateID =()=>{
   const a =Date.now().toString(30)
   const b =Math.random().toString(30).substring(2)
   return a+b
-}
+};
 export const generateCode =()=>{
   const a =Math.random().toString(30).substring(2)
-  return a}
+  return a
+};
 export const generateProduct = () => {
   let body = {
-    //_id: faker.database.mongodbObjectId(),
     title: faker.commerce.productName(),
     description:faker.commerce.productDescription(),
     code: generateCode(),
