@@ -6,6 +6,8 @@ import session from 'express-session';
 import passport from 'passport';
 import path from "path";
 import { __dirname } from './config.js';
+import swaggerUiExpress from "swagger-ui-express";
+import {specs} from './utils/swagger.js'
 import { iniPassport } from './config/passport.config.js';
 import { authRouter } from './routes/auth.router.js';
 import { cartsRouter } from './routes/carts.router.js';
@@ -70,6 +72,8 @@ app.set("view engine", "handlebars");
 // app.use(express.static("public"));
 app.use(express.static(path.join(__dirname, "/public")));
 
+//ENDPOINT 
+app.use("/apidocs", swaggerUiExpress.serve, swaggerUiExpress.setup(specs));
 
 //ENDPOINTS TIPO API REST/JSON
 app.use("/api/products" ,productsRouter)

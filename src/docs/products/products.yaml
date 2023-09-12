@@ -1,0 +1,136 @@
+paths:
+  /api/products:
+    get:
+      summary: Obtiene todos los productos
+      tags:
+        - Products
+      responses:
+        "200":
+          description: Los productos fueron devueltos satisfactoriamente
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#components/schemas/product"
+        "500":
+          description: Error del servidor. Usualmente generando la query o falla la conexion a la DB
+  /api/products/{pid}:
+    get:
+      summary: Obtiene un product
+      tags:
+        - Products
+      parameters:
+        - name: pid
+          in: path
+          required: true
+          description: ID del usuario que se busca
+          schema:
+            $type: String
+      responses:
+        "200":
+          description: Usuario encontrado
+          content:
+            application/json:
+              schema:
+                $ref: "#components/schemas/product"
+    put:
+      summary: Actualizar un producto a partir del ID
+      tags:
+        - Products
+      parameters:
+        - name: pid
+          in: path
+          required: true
+          description: ID del usuario que se busca
+          schema:
+            $type: String
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#components/requestBodies/updateproduct"
+      responses:
+        "200":
+          description: Usuario modificado exitosamente
+          content:
+            application/json:
+              schema:
+                $ref: "#components/schemas/Success"
+components:
+  schemas:
+    Success:
+      type: object
+      properties:
+        status:
+          type: String
+          description: success or error
+        message:
+          type: String
+          description: aclarando que ocurrio
+      example:
+        status: success
+        message: product updated
+    product:
+      type: object
+      properties:
+        _id:
+          type: ObjectId
+          description: ID auto generado by mongo
+        title:
+          type: String
+          description: Nombre del producto
+        description:
+          type: String
+          description: Descripcion de producto
+        code:
+          type: String
+          description: Codigo de identificacion generado automaticamente
+        price:
+          type: Number
+          description: precio del producto
+        status:
+          type: Boolean
+          description: Indica si el producto esta disponible
+        thumbnail:
+          type: String
+          description: url de la imagen del producto
+        stock:
+          type: Number
+          description: Cantidad disponible del producto
+        category:
+          type: String
+          description: Categoria a la cual pertenece el producto
+      example:
+         _id: 648ce3f7c319b7c2746f59c2 
+         title: intel core i5 
+         description: procesador gama media 
+         code: lasd1235 
+         price: 35900
+         status: true 
+         thumbnail: none 
+         stock: 10
+         category: procesadores 
+         __v: 0
+  requestBodies:
+    updateProduct:
+      type: object
+      properties:
+        first_name:
+          type: String
+          description: Primer nombre
+        last_name:
+          type: String
+          description: Apellido
+        email:
+          type: String
+          description: Email de usuario
+        password:
+          type: String
+          description: Password hasheado del product
+      example:
+        first_name: Adrian
+        last_name: Campo
+        email: atrian@gmail.com
+        password: $2b$10$Cf.uErjQ/lEzypTNfyE1IuFGxVXSRqGzjFWBYwL9KLK4Fe29kvu.e

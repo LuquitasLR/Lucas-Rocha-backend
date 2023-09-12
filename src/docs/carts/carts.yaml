@@ -1,0 +1,238 @@
+paths:
+  /api/carts:
+    post:
+      summary: Crea un carrito
+      tags:
+        - Carts
+      responses:
+        "200":
+          description: Carrito creado exitosamente
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#components/schemas/carts"
+        "500":
+          description: Error del servidor. Usualmente generando la query o falla la conexion a la DB
+  /api/carts/{cid}:
+    get:
+      summary: Obtiene un carrito
+      tags:
+        - Carts
+      parameters:
+        - name: cid
+          in: path
+          required: true
+          description: ID del carrito que se busca
+          schema:
+            $type: String
+      responses:
+        "200":
+          description: Carrito encontrado
+          content:
+            application/json:
+              schema:
+                $ref: "#components/schemas/cartID"
+    put:
+      summary: Actualizar un carrito a partir del ID
+      tags:
+        - Carts
+      parameters:
+        - name: cid
+          in: path
+          required: true
+          description: ID del carrito que se busca
+          schema:
+            $type: String
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#components/requestBodies/replaceCart"
+      responses:
+        "200":
+          description: Carrito modificado exitosamente
+          content:
+            application/json:
+              schema:
+                $ref: "#components/schemas/cartID"
+    delete:
+      summary: Borrar un carrito a partir del ID
+      tags:
+        - Carts
+      parameters:
+        - name: cid
+          in: path
+          required: true
+          description: ID del carrito que se desea borrar
+          schema:
+            $type: String
+      responses:
+        "200":
+          description: Carrito borrado exitosamente
+          content:
+            application/json:
+              schema:
+                $ref: "#components/schemas/cartID"
+  /api/carts/{cid}/products/{pid}:
+    put:
+      summary: Agregar un producto al carrito indicando el ID del carrito, el ID del producto y la cantidad
+      tags:
+        - Carts
+      parameters:
+        - name: cid
+          in: path
+          required: true
+          description: ID del carrito al que le vamos a agregar productos
+        - name: pid
+          in: path
+          required: true
+          description: ID del producto que se desea agregar
+          schema:
+            $type: String
+      requestBody:
+        required: true
+        content: 
+          application/json:
+            schema:
+              $ref: "#components/requestBodies/replaceCart"
+      responses:
+        "200":
+          description: Carrito modificado exitosamente
+          content:
+            application/json:
+              schema:
+                $ref: "#components/schemas/cartID"
+    delete:
+      summary: Borra un producto del carrito indicando el ID del carrito y el ID del producto
+      tags:
+        - Carts
+      parameters:
+        - name: cid
+          in: path
+          required: true
+          description: ID del carrito que se busca
+          schema:
+            $type: String
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#components/requestBodies/replaceCart"
+      responses:
+        "200":
+          description: Carrito modificado exitosamente
+          content:
+            application/json:
+              schema:
+                $ref: "#components/schemas/cartID"
+  /api/carts/{cid}/purchase:
+    post:
+      summary: Crea una orden de compra con los productos que estaban en el carrito, en caso de no haber stock suficiente de algun producto este no se incluira en el ticket y se le informara al usuario 
+      tags:
+        - Carts
+      responses:
+        "200":
+          description: Carrito creado exitosamente
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#components/schemas/carts"
+        "500":
+          description: Error del servidor. Usualmente generando la query o falla la conexion a la DB
+components:
+  schemas:
+    Success:
+      type: object
+      properties:
+        status:
+          type: String
+          description: success or error
+        message:
+          type: String
+          description: aclarando que ocurrio
+      example:
+        status: success
+        message: Cart updated
+    cartID:
+      type: object
+      properties:
+        _id:
+          type: String
+          description: ID auto generado by mongo
+        products:
+          type: Array
+          description: Arreglo que contiene los productos que se encuentran en el carrito y la cantidad deseada
+          product:
+            type: Object
+            description: Producto que se encuentra en el carrito
+          quantity:
+            type: Number
+            description: Cantidad del producto que se encuentra en el carrito
+          _id:
+            type: String
+            description: Id automatico generado por Mongo
+      example:
+        _id : 64d01b3009540d6fa6e98871 
+        products: [
+          { product: {
+              _id: 648ce3f7c319b7c2746f59c2,
+              title: intel core i5,
+              description: procesador gama media, 
+              code: lasd1235,
+              price: 35900,
+              status: true,
+              thumbnail: none, 
+              stock: 10,
+              category: procesadores,
+              __v: 0
+            },
+            quantity: 5,
+            _id: 64d0220640938b798e59dc47,
+          }
+        ]
+        __v: 0
+    carts:
+      type: object
+      properties:
+        _id:
+          type: String
+          description: ID auto generado by mongo
+        products:
+          type: Array
+          description: Arreglo vacio en el cual iran los productos que se vayan agregando al carrito y las cantidades deseadas
+      example:
+        _id : 64d01b3009540d6fa6e98871 
+        products: []
+        __v: 0
+  requestBodies:
+    replaceCart:
+      type: Array
+      description: Arreglo que contiene los productos que se encuentran en el carrito y la cantidad deseada
+      product:
+        type: Object
+        description: Producto que se encuentra en el carrito
+      quantity:
+        type: Number
+        description: Cantidad del producto que se encuentra en el carrito
+    example:
+      products: [
+                { product: {
+                    _id: 648ce3f7c319b7c2746f59c2,
+                    title: intel core i5,
+                    description: procesador gama media, 
+                    code: lasd1235,
+                    price: 35900,
+                    status: true,
+                    thumbnail: none, 
+                    stock: 10,
+                    category: procesadores,
+                    __v: 0
+                  },
+                  quantity: 5,
+                }]

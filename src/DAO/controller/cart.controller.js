@@ -35,7 +35,7 @@ class CartController {
      replaceCart = async (req, res) => {
         try{
           const _id = req.params.cid;
-          // EL BODY DEBE CONTENER EL OBJETO PRODUCTS CON EL ARRAY DE PRODUCTOS
+          // EL BODY DEBE CONTENER EL ARRAY PRODUCTS CON EL ARRAY DE PRODUCTOS
           const rCart= req.body
           const replaceCart = await cartService.repalceCart(_id,rCart)
           return res
