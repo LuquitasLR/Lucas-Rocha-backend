@@ -114,6 +114,10 @@ paths:
           in: path
           required: true
           description: ID del carrito que se busca
+        - name: pid
+          in: path
+          required: true
+          description: ID del producto que se desea borrar del carrito
           schema:
             $type: String
       requestBody:
@@ -124,7 +128,7 @@ paths:
               $ref: "#components/requestBodies/replaceCart"
       responses:
         "200":
-          description: Carrito modificado exitosamente
+          description: Producto borrado exitosamente
           content:
             application/json:
               schema:
@@ -136,7 +140,7 @@ paths:
         - Carts
       responses:
         "200":
-          description: Carrito creado exitosamente
+          description: El siguiente ticket fue creado exitosamente:[newTicket]. Los siguientes productos no contaban con stock suficiente:[noStock].
           content:
             application/json:
               schema:
