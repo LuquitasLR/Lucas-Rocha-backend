@@ -1,5 +1,5 @@
 import { MsgModel } from '../DAO/mongoose/msg.mongoose.js'
-import { productService } from "../services/productService.js";
+//import { productService } from "../services/productService.js";
 import { Server } from 'socket.io';
 
 export function socketServerConection (httpServer){
