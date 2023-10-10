@@ -1,5 +1,3 @@
-//import { cartModel } from "../DAO/models/mongo/cart.mongo.js"
-//import {cartModel} from '../DAO/models/memory/cart.memory.js'
 import { cartModel } from "../DAO/factory.js"
 class CartService {
 

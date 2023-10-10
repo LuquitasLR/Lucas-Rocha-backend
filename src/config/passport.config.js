@@ -94,7 +94,6 @@ export function iniPassport() {
       async (req, username, password, done) => {
         try {
           const { mail, firstName, age, lastName } = req.body;
-          console.log(mail)
           const user = await userService.getUser(username);
           if (user) {
             logger.verbose('User already exists');

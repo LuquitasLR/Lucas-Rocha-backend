@@ -12,6 +12,8 @@ import { iniPassport } from './config/passport.config.js';
 import { authRouter } from './routes/auth.router.js';
 import { cartsRouter } from './routes/carts.router.js';
 import { vistaProducts } from './routes/home.handlebars.router.js';
+import { vistaPurchase } from './routes/purchase.handlebars.router.js';
+import { vistaCart } from './routes/cart.handlebars.router.js';
 import { productsRouter } from './routes/products.router.js';
 import { realTimeProductsRouter } from './routes/real-time-products.handlebars.router.js';
 import { sessionsRouter } from './routes/sessions.router.js';
@@ -84,6 +86,8 @@ app.use("/loggerTest",loggerRouter)
 
 //ENDPOINTS CON VISTAS DE HANDLEBARS
 app.use("/products", vistaProducts)
+app.use("/cart", vistaCart)
+app.use("/purchase", vistaPurchase)
 app.use("/realtimeproducts", realTimeProductsRouter)
 app.use("/test-chat", testChatRouter)
 app.use("/sessions",sessionsViewsRouter)

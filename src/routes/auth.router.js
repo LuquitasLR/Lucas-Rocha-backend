@@ -34,7 +34,6 @@ authRouter.post('/login', passport.authenticate('login', { failureRedirect: '/au
     return res.render('error-page',{error:'Credenciales invalidas'});
   }
   req.session.user = { _id: req.user._id, mail: req.user.mail, firstName: req.user.firstName, lastName: req.user.lastName, cart:req.user.cart, role: req.user.role };
-
   return res.redirect("../products",);
 });
 

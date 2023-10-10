@@ -1,5 +1,3 @@
-//import { userModel } from "../DAO/models/mongo/user.mongo.js";
-//import {userModel} from '../DAO/models/memory/user.memory.js'
 import { userModel } from '../DAO/factory.js';
 
 class UserService {

@@ -22,6 +22,22 @@ class TicketController {
         
       }
 
+      newTicketToRender = async (req, res) => {
+        try{
+          const _id = req.session.user.cart;
+          const cart = await cartService.getCart(_id)
+          const newTicket= await ticketService.newTicket(cart)
+          return res
+          .status(200)
+          .render("purchase",{newTicket})}
+        catch{
+          return res
+          .status(500)
+          .json({ status: "error", msg: "algo salió mal" });
+        }
+        
+      }
+
 
 }
 

@@ -1,5 +1,6 @@
 import {productService} from '../../services/productService.js'
 import { generateProduct } from '../../utils/utils.js';
+import { userService } from '../../services/userService.js';
 
 class ProductController {
 
@@ -77,7 +78,8 @@ class ProductController {
             const queryResult = await productService.getPaginatedProducts({},{ sort:{},limit:5,page:querypage})
             let paginatedProducts= queryResult.docs
             const { totalDocs, limit, totalPages, page, pagingCounter, hasPrevPage, hasNextPage, prevPage, nextPage } = queryResult;
-            const user= req.user.mail
+            const user= req.session.user
+            const userCart=req.session.user.cart
             paginatedProducts= paginatedProducts.map((product)=>{
                 return {
                     _id:product._id.toString(),
@@ -87,7 +89,7 @@ class ProductController {
                 }
             }
             )
-            return res.status(200).render("products",{user, paginatedProducts,totalDocs, limit, totalPages, page, pagingCounter, hasPrevPage, hasNextPage, prevPage, nextPage})
+            return res.status(200).render("products",{user,userCart, paginatedProducts,totalDocs, limit, totalPages, page, pagingCounter, hasPrevPage, hasNextPage, prevPage, nextPage})
     
         }
         catch{

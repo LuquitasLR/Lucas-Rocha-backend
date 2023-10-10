@@ -32,6 +32,29 @@ class CartController {
         }
         
       }
+      getCartToRender= async (req, res) => {
+        try{
+          const _id = req.session.user.cart;
+          const apiCart = await cartService.getCartPopulated(_id)
+          const {products}= apiCart
+          const vistaCart= products.map(p=>{
+            return {
+              product:p.product.title,
+              _id:p.product._id.toString(),
+              quantity:p.quantity
+            }
+          })
+          return res
+          .status(200)
+          .render(`cart`,{vistaCart})
+        }
+        catch{
+          return res
+          .status(500)
+          .json({ status: "error", msg: "algo salió mal" });
+        }
+        
+      }
      replaceCart = async (req, res) => {
         try{
           const _id = req.params.cid;

@@ -5,6 +5,10 @@ class UserModel {
     async create(user){
         return await userMongoose.create(user)
     }
+    
+    async getAll(){
+        return await userMongoose.find()
+    }
 
     async getUser (mail){
         return await userMongoose.findOne({mail:mail})

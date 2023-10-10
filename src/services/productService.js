@@ -1,5 +1,3 @@
-//import { productModel } from '../DAO/models/mongo/product.mongo.js'
-//import {productModel} from '../DAO/models/memory/product.memory.js'
 import { productModel } from '../DAO/factory.js';
 import CustomError from '../utils/custom-error.js';
 import { createProductErrorInfo } from '../utils/info.js';

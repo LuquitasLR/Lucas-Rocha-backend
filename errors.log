@@ -8,3 +8,4 @@ error: Error in register
 error: usuario no encontrado
 warn: alerta!
 error: error!!!
+error: undefined

@@ -1,0 +1,20 @@
+<div>
+  <div>
+     <h1>Carrito:</h1>
+     {{#if user}}
+    <a href="/sessions/logout"><button>Logout!</button></a>
+    <a href="/products">Continua viendo nuestra lista de productos aqui!</a>
+  {{/if}}
+  </div>
+ <ol>{{#each vistaCart}}
+    <li>
+        <h3>Producto: {{this.product}}</h3>
+        <h4>ID:</h4> <p>{{this._id}}</p>
+        <h4>Cantidad:</h4><p>{{this.quantity}}</p>
+    </li>
+    <hr/>
+    {{/each}}
+    <h3>Aqui puedes finalizar tu compra:</h3>
+   <form action="/purchase" method="post">
+   <input type="submit" name="purchase" id="purchase"></form>
+    </div>

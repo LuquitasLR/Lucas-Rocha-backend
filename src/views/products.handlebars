@@ -1,6 +1,6 @@
 <div>
   <div>
-     <h1>Bienvenido {{user}}!</h1>
+     <h1>Bienvenido {{user.mail}}!</h1>
      {{#if user}}
     <a href="/sessions/logout"><button>Logout!</button></a>
   {{/if}}
@@ -12,10 +12,20 @@
         <h4>ID:</h4> <p>{{this._id}}</p>
         <h4>Descripción:</h4><p>{{this.description}}</p>
         <h3>Precio: ${{this.price}}</h3>
-        <a><button id="">Agregar al carrito</button></a>
     </li>
     <hr/>
     {{/each}}
+    <form id="addProductForm">
+      <h3>Agregar productos:</h3>
+      <label for="cartId">Cart ID:</label>
+    <input type="text" id="cartId"value={{userCart}} readonly>
+    <label for="productId">Product ID:</label>
+    <input type="text" id="productId"> 
+    <label for="quantity">Cantidad:</label>
+    <input type="number"required="true" style="width: 35px" id="quantity" min="0">
+    <button type="button" onclick="addProduct()">Agregar</button>
+    <a href="/cart"><button type="button">Ver Carrito</button></a>
+    </form>
  </ol>
  <h3>paginacion</h3>
 <p>
@@ -31,3 +41,4 @@
   {{/if}}
 </p>
 </div>
+<script src="/js/addProduct.js"></script>
