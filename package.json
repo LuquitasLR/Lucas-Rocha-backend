@@ -10,7 +10,8 @@
     "testchaiproduct": "mocha ./test/productChai.test.js",
     "testchaicart": "mocha ./test/cartChai.test.js",
     "start": "node ./src/app.js --mode PRODUCTION",
-    "qa": "node ./src/app.js --mode PRODUCTION",
+    "production": "node ./src/app.js --mode PRODUCTION",
+    "qa": "nodemon ./src/app.js --mode DEVELOPMENT",
     "dev": "nodemon -e yaml,js ./src/app.js --mode DEVELOPMENT"
   },
   "keywords": [],
