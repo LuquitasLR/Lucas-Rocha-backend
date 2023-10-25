@@ -4,6 +4,9 @@
   "version": "1.0.0",
   "description": "",
   "main": "app.js",
+  "engines":{
+    "node": "18.x"
+  },
   "scripts": {
     "test": "mocha ./src/test/user.test.js",
     "testchaiuser": "mocha ./test/userChai.test.js",
